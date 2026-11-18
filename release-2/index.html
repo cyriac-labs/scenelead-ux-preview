@@ -1,0 +1,1236 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Release 2 preview · Scene Lead</title>
+<meta name="description" content="Clickable Release 2 platform preview of the frozen candidate, with fictional data; every action is simulated.">
+<style>
+/* ===== Tokens: copied from the candidate's src/app/globals.css (light :root, --dk-* dark palette, area accents) ===== */
+:root{
+  --bg:#f6f7fc;--surface:#ffffff;--surface-2:#f1f3f9;--surface-3:#e8ebf5;
+  --border:#dde1ec;--border-strong:#c3cade;
+  --text:#131829;--text-muted:#59617a;--text-subtle:#636b85;
+  --primary:#3450f0;--primary-hover:#2a41cc;--primary-soft:#eceffe;--primary-contrast:#ffffff;
+  --accent:#bf4526;--accent-soft:#fdeee9;
+  --success:#116e3e;--success-bg:#e3f6ec;--danger:#c0392b;--danger-bg:#fbe8e6;
+  --warning:#8a5800;--warning-bg:#fdf1dc;--info:#2a41cc;--info-bg:#e9edfd;
+  --text-display:1.9rem;--text-h1:1.5rem;--text-h2:1.15rem;--text-h3:1rem;--text-body:.95rem;--text-sm:.85rem;--text-xs:.78rem;
+  --space-1:.25rem;--space-2:.5rem;--space-3:.75rem;--space-4:1rem;--space-5:1.5rem;--space-6:2rem;
+  --radius-sm:8px;--radius:12px;--radius-lg:16px;--radius-pill:999px;
+  --shadow-sm:0 1px 2px rgba(15,20,45,.05);
+  --shadow:0 1px 3px rgba(15,20,45,.07),0 8px 20px -14px rgba(15,20,45,.25);
+  --shadow-lg:0 2px 8px rgba(15,20,45,.06),0 20px 44px -22px rgba(15,20,45,.34);
+  --focus:0 0 0 3px #3450f0;
+  --studio-header-h:59px;
+  --area-today:#c2410c;--area-schedule:#1d4ed8;--area-people:#047857;--area-communications:#7c3aed;
+  --area-money:#a16207;--area-website:#0e7490;--area-settings:#475569;--area-help:#475569;
+  /* preview chrome only (not product) */
+  --lab-bg:#0b1020;--lab-surface:#161c30;--lab-line:#283049;--lab-text:#eef1f8;--lab-muted:#a7b0c8;--lab-accent:#ffb86b;--lab-on-accent:#1a1205;
+  --sim-bg:#fdf1dc;--sim-text:#7a4b00;--phone-bezel:#10131c;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0d1018;--surface:#171b25;--surface-2:#1f2431;--surface-3:#29303f;--border:#313848;--border-strong:#454e63;
+    --text:#eef1f8;--text-muted:#a5aec2;--text-subtle:#8b95ab;
+    --primary:#8098ff;--primary-hover:#93a8ff;--primary-soft:#1b2340;--primary-contrast:#0b0e14;
+    --accent:#ff9273;--accent-soft:#3a201a;--success:#4ade80;--success-bg:#133226;--danger:#ff7b6b;--danger-bg:#3a1f1c;
+    --warning:#f0c46b;--warning-bg:#35290f;--info:#8098ff;--info-bg:#1b2340;
+    --shadow-sm:0 1px 2px rgba(0,0,0,.4);--shadow:0 1px 3px rgba(0,0,0,.45);--shadow-lg:0 18px 40px -20px rgba(0,0,0,.7);--focus:0 0 0 3px #8098ff;
+    --area-today:#fb923c;--area-schedule:#93c5fd;--area-people:#6ee7b7;--area-communications:#c4b5fd;--area-money:#facc15;--area-website:#67e8f9;--area-settings:#a5aec2;--area-help:#a5aec2;
+    --sim-bg:#35290f;--sim-text:#f0c46b;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0d1018;--surface:#171b25;--surface-2:#1f2431;--surface-3:#29303f;--border:#313848;--border-strong:#454e63;
+  --text:#eef1f8;--text-muted:#a5aec2;--text-subtle:#8b95ab;
+  --primary:#8098ff;--primary-hover:#93a8ff;--primary-soft:#1b2340;--primary-contrast:#0b0e14;
+  --accent:#ff9273;--accent-soft:#3a201a;--success:#4ade80;--success-bg:#133226;--danger:#ff7b6b;--danger-bg:#3a1f1c;
+  --warning:#f0c46b;--warning-bg:#35290f;--info:#8098ff;--info-bg:#1b2340;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.4);--shadow:0 1px 3px rgba(0,0,0,.45);--shadow-lg:0 18px 40px -20px rgba(0,0,0,.7);--focus:0 0 0 3px #8098ff;
+  --area-today:#fb923c;--area-schedule:#93c5fd;--area-people:#6ee7b7;--area-communications:#c4b5fd;--area-money:#facc15;--area-website:#67e8f9;--area-settings:#a5aec2;--area-help:#a5aec2;
+  --sim-bg:#35290f;--sim-text:#f0c46b;
+}
+:root[data-theme="light"]{color-scheme:light}
+
+/* ===== Base (globals.css) ===== */
+*,*::before,*::after{box-sizing:border-box}
+html,body{padding:0;margin:0}
+body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:var(--primary);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3,h4{line-height:1.25;margin:0 0 .5rem;letter-spacing:-.011em}
+h1{font-size:var(--text-h1);font-weight:700}h2{font-size:var(--text-h2);font-weight:650}h3{font-size:var(--text-h3);font-weight:650}
+p{margin:0 0 .5rem}
+.container{max-width:1080px;margin:0 auto;padding:1.5rem}
+.stack{display:flex;flex-direction:column;gap:1rem}
+.row{display:flex;gap:.75rem;align-items:center;flex-wrap:wrap}
+.muted{color:var(--text-muted)}
+.text-sm{font-size:var(--text-sm)}.text-xs{font-size:var(--text-xs)}
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.card{background:var(--surface);border:1px solid var(--border-strong);border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:1.25rem}
+.btn{overflow-wrap:anywhere;display:inline-flex;align-items:center;justify-content:center;gap:.4rem;font:inherit;font-weight:600;padding:.6rem 1rem;min-height:44px;border-radius:var(--radius-sm);border:1px solid var(--border-strong);background:var(--surface);color:var(--text);cursor:pointer;text-decoration:none;font-size:1rem}
+.btn:hover:not(:disabled){background:var(--surface-2);text-decoration:none}
+.btn-primary{background:var(--primary);color:var(--primary-contrast);border-color:transparent}
+.btn-primary:hover:not(:disabled){background:var(--primary-hover)}
+.btn-sm{min-height:44px;padding:.4rem .8rem;font-size:.95rem}
+.btn-block{width:100%}
+.btn-ghost{background:transparent;border-color:transparent;color:var(--primary)}
+.btn-ghost:hover:not(:disabled){background:var(--primary-soft)}
+.btn-danger{background:var(--surface);border-color:var(--danger);color:var(--danger)}
+.btn-toggle[aria-pressed="true"],.btn-toggle[aria-current="page"]{border-color:var(--primary);background:var(--primary-soft);color:var(--primary);font-weight:700;box-shadow:inset 0 0 0 1px var(--primary)}
+.btn:focus-visible,a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible,summary:focus-visible{outline:2px solid transparent;box-shadow:var(--focus)}
+label{font-weight:600;font-size:.9rem;display:block;margin-bottom:.3rem}
+input:not([type=checkbox]):not([type=radio]),select,textarea{font:inherit;width:100%;padding:.55rem .7rem;border:1px solid var(--border-strong);border-radius:8px;background:var(--surface);color:var(--text);min-height:44px}
+textarea{resize:vertical;min-height:90px}
+input::placeholder,textarea::placeholder{color:var(--text-subtle);opacity:1}
+input[type=checkbox],input[type=radio]{width:1.1rem;height:1.1rem;margin:0;accent-color:var(--primary);cursor:pointer;flex:none}
+label:has(> input[type=checkbox]),label:has(> input[type=radio]){display:inline-flex;align-items:center;gap:.45rem;min-height:44px;cursor:pointer;font-weight:500}
+.badge{display:inline-flex;align-items:center;gap:.3rem;padding:.15rem .55rem;border-radius:999px;font-size:.78rem;font-weight:700;border:1px solid transparent;white-space:nowrap}
+.badge-present,.badge-success{background:var(--success-bg);color:var(--success)}
+.badge-absent,.badge-danger{background:var(--danger-bg);color:var(--danger)}
+.badge-late,.badge-warning{background:var(--warning-bg);color:var(--warning)}
+.badge-excused,.badge-info{background:var(--info-bg);color:var(--primary)}
+.badge-neutral{background:var(--surface-2);color:var(--text-muted)}
+.status-pill{padding:.25rem .7rem;font-size:var(--text-sm);border-color:currentColor}
+table{width:100%;border-collapse:collapse}
+th,td{text-align:left;padding:.6rem .5rem;border-bottom:1px solid var(--border);font-size:.92rem}
+th{color:var(--text-muted);font-size:.8rem;text-transform:uppercase;letter-spacing:.03em}
+thead th{background:var(--surface-2)}
+.glyph{flex:none;vertical-align:middle}
+.toast{padding:.75rem 1rem;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface);box-shadow:var(--shadow-sm)}
+
+/* ===== Product app header (.appbar) ===== */
+.sl-app{container-type:inline-size;container-name:sl;background:var(--bg);color:var(--text);min-height:100%}
+.appbar{display:flex;justify-content:space-between;align-items:center;height:var(--studio-header-h);padding:0 1.5rem;background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:var(--lab-h,0px);z-index:10;gap:.5rem}
+.appbar__brand{font-weight:700;color:var(--primary);white-space:nowrap}
+.appbar .row{gap:.5rem;flex-wrap:nowrap}
+.appbar select{width:auto;max-width:11rem;min-height:44px}
+.appbar__who{font-size:.85rem}
+.theme-menu{position:relative}
+.theme-menu>summary{list-style:none;cursor:pointer}
+.theme-menu>summary::-webkit-details-marker{display:none}
+.theme-menu__panel{position:absolute;right:0;z-index:20;margin-top:.25rem;min-width:14rem;padding:.75rem;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}
+.theme-menu__panel fieldset{border:0;margin:0;padding:0}
+.theme-menu__panel legend{font-weight:650;margin-bottom:.25rem}
+
+/* ===== Studio frame (layout.tsx) ===== */
+.studio-page{max-width:1400px}
+.studio-head{display:flex;flex-direction:column;gap:.15rem}
+.studio-head__back{font-size:var(--text-sm);align-self:flex-start;color:var(--text-muted)}
+.studio-head__name{margin:0;font-size:var(--text-h1)}
+.studio-head__who{margin:0;font-size:var(--text-sm)}
+.studio-shell{display:grid;grid-template-columns:240px minmax(0,1fr);gap:1.5rem;align-items:start}
+.studio-shell__main{min-width:0}
+.studio-nav{position:sticky;top:calc(var(--lab-h,0px) + var(--studio-header-h) + .75rem);max-height:calc(100vh - var(--lab-h,0px) - var(--studio-header-h) - 1.5rem);overflow-y:auto;padding-right:.25rem;scrollbar-width:thin}
+.studio-nav__bar,.studio-nav__scrim,.studio-nav__close{display:none}
+.studio-nav__here{font-size:.85rem;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.studio-nav__presethint{margin:.4rem 0 0}
+.studio-nav__focus{margin-top:.9rem}
+
+/* ===== The rail (ui-kit.css) ===== */
+.rail__list,.rail__sub{list-style:none;margin:0;padding:0}
+.rail__list{display:flex;flex-direction:column;gap:2px}
+.rail__row{display:flex;align-items:center;gap:2px}
+.rail__link{display:flex;align-items:center;gap:var(--space-2);flex:1 1 auto;min-width:0;min-height:40px;padding:.45rem .65rem;border-radius:var(--radius-sm);color:var(--text);font-size:var(--text-body);font-weight:600;text-decoration:none}
+.rail__link:hover{background:var(--surface-2);text-decoration:none}
+.rail__section{--area-accent:var(--text-subtle)}
+.rail__section[data-area=today]{--area-accent:var(--area-today)}.rail__section[data-area=schedule]{--area-accent:var(--area-schedule)}
+.rail__section[data-area=people]{--area-accent:var(--area-people)}.rail__section[data-area=communications]{--area-accent:var(--area-communications)}
+.rail__section[data-area=money]{--area-accent:var(--area-money)}.rail__section[data-area=website]{--area-accent:var(--area-website)}
+.rail__section[data-area=settings]{--area-accent:var(--area-settings)}.rail__section[data-area=help]{--area-accent:var(--area-help)}
+.rail__section>.rail__row>.rail__link .glyph{color:var(--area-accent)}
+.rail__section[data-current=true]>.rail__row>.rail__link{background:var(--primary-soft);color:var(--primary);font-weight:700;box-shadow:inset 3px 0 0 var(--area-accent)}
+.rail__section[data-current=true]>.rail__sub{border-left-color:var(--area-accent)}
+.rail__toggle{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;width:32px;min-height:32px;padding:0;border:0;border-radius:var(--radius-sm);background:none;color:var(--text-subtle);cursor:pointer}
+.rail__toggle:hover{background:var(--surface-2);color:var(--text)}
+.rail__sub{display:flex;flex-direction:column;gap:1px;margin:2px 0 var(--space-2) 1.05rem;padding-left:var(--space-3);border-left:2px solid var(--border)}
+.rail__sublink{display:flex;align-items:center;gap:var(--space-2);min-height:36px;padding:.35rem .6rem;border-radius:var(--radius-sm);color:var(--text-muted);font-size:var(--text-sm);text-decoration:none}
+.rail__sublink .glyph{color:var(--text-subtle)}
+.rail__sublink:hover{background:var(--surface-2);color:var(--text);text-decoration:none}
+.rail__sublink[aria-current=page],.rail__link[aria-current=page]{color:var(--primary);font-weight:700}
+.rail__sublink[aria-current=page]{background:var(--primary-soft)}
+.rail__sublink[aria-current=page] .glyph{color:var(--primary)}
+.rail__sub[hidden]{display:none}
+.rail__list--footer{margin-top:var(--space-3);padding-top:var(--space-2);border-top:1px solid var(--border)}
+.rail__subgroup{display:flex;flex-direction:column;gap:1px;margin-top:var(--space-2)}
+.rail__subhead{padding:.2rem .6rem;color:var(--text-subtle);font-size:var(--text-sm);font-weight:700}
+.rail__sub--nested{margin:0;padding-left:0;border-left:0}
+
+/* ===== Page header, sections, cards (ui-kit.css) ===== */
+[data-area]{--area-accent:var(--primary)}
+[data-area=today]{--area-accent:var(--area-today)}[data-area=schedule]{--area-accent:var(--area-schedule)}[data-area=people]{--area-accent:var(--area-people)}
+[data-area=communications]{--area-accent:var(--area-communications)}[data-area=money]{--area-accent:var(--area-money)}[data-area=website]{--area-accent:var(--area-website)}
+[data-area=settings]{--area-accent:var(--area-settings)}[data-area=help]{--area-accent:var(--area-help)}
+.page-header{display:flex;flex-direction:column;gap:var(--space-2);margin-bottom:0}
+.page-header__row{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-4);flex-wrap:wrap}
+.page-header__titles{min-width:0;flex:1 1 20rem}
+.page-header__title{display:flex;align-items:center;gap:var(--space-2);margin:0;font-size:var(--text-h1);font-weight:700;letter-spacing:-.015em}
+.page-header__icon{color:var(--area-accent,var(--primary));display:inline-flex}
+.page-header__description{margin:var(--space-1) 0 0;color:var(--text-muted);font-size:var(--text-body);max-width:62ch}
+.page-header__actions{display:flex;gap:var(--space-2);flex-wrap:wrap;align-items:center}
+.section{display:flex;flex-direction:column;gap:var(--space-4)}
+.section.card{padding:1.25rem}
+.section__head{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-3);flex-wrap:wrap}
+.section__title{margin:0;font-size:var(--text-h2);font-weight:650}
+.section__description{margin:var(--space-1) 0 0;color:var(--text-muted);font-size:var(--text-sm);max-width:68ch}
+.section__body{display:flex;flex-direction:column;gap:var(--space-3);min-width:0}
+.section--accent{border-left:3px solid var(--accent)}.section--warning{border-left:3px solid var(--warning)}.section--info{border-left:3px solid var(--info)}
+.empty-state{display:flex;flex-direction:column;align-items:center;gap:var(--space-2);text-align:center;padding:var(--space-6) var(--space-4);border:1px dashed var(--border-strong);border-radius:var(--radius);background:var(--surface-2)}
+.empty-state__icon{color:var(--text-subtle);padding:var(--space-2);border-radius:var(--radius-pill);background:var(--surface);display:inline-flex}
+.empty-state__title{font-size:var(--text-h3);font-weight:650}
+.empty-state__hint{color:var(--text-muted);font-size:var(--text-sm);max-width:46ch}
+.empty-state--restricted .empty-state__icon{color:var(--text-subtle)}
+.task-card{display:flex;align-items:flex-start;gap:var(--space-3);padding:var(--space-3) var(--space-4);border:1px solid var(--border-strong);border-radius:var(--radius);background:var(--surface);box-shadow:var(--shadow-sm)}
+.task-card__icon{margin-top:.15rem;color:var(--text-subtle)}
+.task-card__body{flex:1 1 auto;min-width:0}
+.task-card__title{display:flex;align-items:center;gap:var(--space-2);flex-wrap:wrap;font-weight:650;font-size:var(--text-h3)}
+.task-card__meta{margin-top:.15rem;color:var(--text-muted);font-size:var(--text-body)}
+.task-card__action{flex:0 0 auto;display:flex;gap:var(--space-2);align-items:center}
+.task-card.is-muted{background:var(--surface-2);border-style:dashed}
+.task-card--warning{border-left:3px solid var(--warning)}.task-card--danger{border-left:3px solid var(--danger)}.task-card--accent{border-left:3px solid var(--accent)}.task-card--info{border-left:3px solid var(--info)}
+.chip{display:inline-flex;align-items:center;gap:.35rem;padding:.25rem .65rem;border:1px solid var(--border);border-radius:var(--radius-pill);background:var(--surface);color:var(--text-muted);font-size:var(--text-sm);line-height:1.4}
+.chip--link{color:var(--text);text-decoration:none}
+.chip--link:hover{background:var(--surface-2);text-decoration:none}
+.metric-grid{display:grid;gap:var(--space-3);grid-template-columns:repeat(auto-fill,minmax(min(100%,12rem),1fr))}
+.metric-tile{display:flex;flex-direction:column;min-width:0;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);overflow:hidden}
+.metric-tile__main{display:flex;flex-direction:column;gap:var(--space-1);padding:var(--space-4) var(--space-4) var(--space-3);color:inherit;text-decoration:none;flex:1 1 auto}
+.metric-tile__main:hover{text-decoration:none;background:var(--surface-2)}
+.metric-tile__label{display:flex;align-items:center;gap:.4rem;color:var(--text-muted);font-size:var(--text-sm);font-weight:600}
+.metric-tile__label .glyph{color:var(--text-subtle)}
+.metric-tile__value{font-size:var(--text-display);font-weight:700;line-height:1.1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.metric-tile__action{display:flex;align-items:center;gap:.3rem;padding:var(--space-2) var(--space-4);border-top:1px solid var(--border);color:var(--primary);font-size:var(--text-sm);font-weight:650;text-decoration:none;min-height:40px}
+.metric-tile__action:hover{background:var(--primary-soft);text-decoration:none}
+.data-table{width:100%;border-collapse:collapse}
+.data-table th{color:var(--text-muted);background:var(--surface-2);font-size:var(--text-xs);font-weight:650;text-transform:uppercase;letter-spacing:.04em;padding:var(--space-2) var(--space-3);border-bottom:1px solid var(--border-strong);white-space:nowrap}
+.data-table td{padding:var(--space-3);border-bottom:1px solid var(--border);font-size:var(--text-body);vertical-align:middle;font-variant-numeric:tabular-nums}
+.data-table tbody tr:last-child td{border-bottom:0}
+.data-table tbody tr:hover td{background:var(--surface-2)}
+.data-table td[data-primary]{font-weight:650}
+.data-table__scroll{overflow-x:auto;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface)}
+.tabs{display:flex;gap:var(--space-1);border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none}
+.tabs__tab{display:inline-flex;align-items:center;gap:.4rem;padding:.6rem .9rem;min-height:44px;margin-bottom:-1px;border:0;border-bottom:2px solid transparent;background:none;color:var(--text-muted);font:inherit;font-size:var(--text-sm);font-weight:650;white-space:nowrap;cursor:pointer}
+.tabs__tab:hover{color:var(--text)}
+.tabs__tab[aria-selected=true]{color:var(--primary);border-bottom-color:var(--primary)}
+.tabs__count{padding:0 .45rem;border-radius:var(--radius-pill);background:var(--surface-3);color:var(--text-muted);font-size:var(--text-xs)}
+.field{display:flex;flex-direction:column;gap:.3rem;min-width:0}
+.field__label{font-weight:650;font-size:var(--text-sm);display:flex;align-items:baseline;gap:.35rem;flex-wrap:wrap;margin:0}
+.field__required{font-size:var(--text-xs);font-weight:650;color:var(--accent);text-transform:lowercase}
+.field__hint{margin:0;color:var(--text-muted);font-size:var(--text-sm)}
+.form-row{display:flex;flex-wrap:wrap;gap:var(--space-3) var(--space-4)}
+.form-row>*{flex:1 1 14rem;min-width:0}
+.form-actions{display:flex;align-items:center;gap:var(--space-2);flex-wrap:wrap;margin-top:var(--space-2)}
+.state-note{display:flex;align-items:center;justify-content:space-between;gap:var(--space-3);flex-wrap:wrap;padding:var(--space-3) var(--space-4);border-radius:var(--radius);border:1px solid var(--border);font-size:var(--text-sm)}
+.state-note--warning{background:var(--warning-bg);border-color:var(--warning);color:var(--warning)}
+.state-note--info{background:var(--info-bg);border-color:var(--info);color:var(--info)}
+.disclosure>summary{cursor:pointer;font-weight:650;min-height:44px;display:flex;align-items:center;gap:.4rem}
+.action-menu{position:relative;display:inline-block}
+.action-menu>summary{list-style:none}
+.action-menu>summary::-webkit-details-marker{display:none}
+.action-menu__list{position:absolute;top:calc(100% + 4px);right:0;z-index:20;min-width:13rem;display:flex;flex-direction:column;padding:var(--space-1);background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-lg)}
+.action-menu__list>button{display:flex;align-items:center;gap:var(--space-2);width:100%;min-height:40px;padding:.5rem .75rem;border:0;border-radius:var(--radius-sm);background:none;color:var(--text);font:inherit;text-align:left;cursor:pointer}
+.action-menu__list>button:hover{background:var(--surface-2)}
+.progress{display:flex;flex-direction:column;gap:.25rem;font-size:var(--text-sm);color:var(--text-muted)}
+.progress__bar{height:8px;border-radius:999px;background:var(--surface-3);overflow:hidden}
+.progress__fill{height:100%;background:var(--primary);border-radius:999px}
+
+/* Home (ui-kit.css .home*) */
+.home__top{display:flex;align-items:center;justify-content:space-between;gap:var(--space-3);flex-wrap:wrap}
+.home__context{display:flex;align-items:center;gap:var(--space-2);flex-wrap:wrap;min-width:0}
+.home__top-actions{display:flex;align-items:center;gap:var(--space-2);flex-wrap:wrap}
+.home-focus{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-2)}
+.home-focus__btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--space-2);min-height:56px;padding:var(--space-2) var(--space-4);border:2px solid var(--border);border-radius:var(--radius);background:var(--surface-2);color:var(--text-muted);font:inherit;font-size:1.1rem;font-weight:700;cursor:pointer}
+.home-focus__btn[aria-pressed=true]{border-color:var(--primary);background:var(--primary-soft);color:var(--primary);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:.3em}
+.home-focus__btn[aria-pressed=true]::before{content:'\2713'}
+.home__actions{display:grid;grid-template-columns:repeat(auto-fill,minmax(12rem,1fr));gap:var(--space-2)}
+.home__actions .btn{justify-content:flex-start;text-align:left}
+.home__grid{display:grid;gap:var(--space-5);grid-template-columns:minmax(0,3fr) minmax(18rem,2fr);align-items:start}
+.home__list{list-style:none;margin:0;padding:0;display:grid;gap:var(--space-2)}
+.home__when{font-variant-numeric:tabular-nums;white-space:nowrap;margin-right:var(--space-2)}
+
+/* Area cards (area-pages.module.css + ui-kit .area-card) */
+.area-pages{display:grid;gap:1.5rem}
+.area-group{display:grid;gap:.75rem}
+.area-group__title{margin:0;font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-subtle)}
+.area-grid{display:grid;gap:.75rem;list-style:none;margin:0;padding:0;grid-template-columns:repeat(auto-fill,minmax(min(100%,15rem),1fr))}
+.pcard{display:flex;align-items:center;gap:.85rem;min-height:4.5rem;padding:.85rem 1rem;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);box-shadow:var(--shadow-sm);color:var(--text);text-decoration:none;height:100%}
+.pcard:hover{border-color:var(--area-accent,var(--primary));box-shadow:var(--shadow);text-decoration:none}
+.pcard[aria-current=page]{border-color:var(--area-accent,var(--primary));background:var(--surface-2)}
+.pcard__icon{flex:none;display:grid;place-items:center;width:2.75rem;height:2.75rem;border-radius:.8rem;background:var(--surface-2);color:var(--area-accent,var(--primary))}
+.pcard[aria-current=page] .pcard__icon{background:var(--surface)}
+.pcard__text{display:grid;gap:.15rem;min-width:0}
+.pcard__name{font-weight:650;font-size:1rem}
+.pcard__line{font-size:.85rem;color:var(--text-subtle)}
+.pcard[aria-current=page] .pcard__name,.pcard[aria-current=page] .pcard__line{text-decoration:underline}
+.area-card{display:flex;align-items:flex-start;gap:var(--space-3);height:100%;min-height:72px;padding:var(--space-3) var(--space-4);border:1px solid var(--border);border-left:4px solid var(--area-accent);border-radius:var(--radius);background:var(--surface);color:var(--text);text-decoration:none}
+.area-card:hover{background:var(--surface-2);text-decoration:none}
+.area-card__icon{flex:none;display:inline-flex;color:var(--area-accent)}
+.area-card__text{display:flex;flex-direction:column;gap:.15rem;min-width:0}
+.area-card__title{font-weight:700}
+.area-card__line{color:var(--text-muted);font-size:var(--text-sm)}
+
+/* Dialog (ui-kit .app-dialog) */
+.dlg-wrap{position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;padding:1rem}
+.dlg-scrim{position:absolute;inset:0;background:rgba(11,16,32,.5)}
+.app-dialog{position:relative;width:min(92vw,32rem);max-height:90%;overflow:auto;border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--surface);color:var(--text);box-shadow:var(--shadow-lg)}
+.app-dialog--wide{width:min(94vw,46rem)}
+.app-dialog__panel{display:flex;flex-direction:column;gap:var(--space-3);padding:var(--space-5)}
+.app-dialog__title{margin:0;font-size:var(--text-h2);font-weight:650;line-height:1.3}
+.app-dialog__body{color:var(--text-muted)}
+.app-dialog__fields{display:flex;flex-direction:column;gap:var(--space-3)}
+.app-dialog__actions{display:flex;justify-content:flex-end;gap:var(--space-2);flex-wrap:wrap;padding-top:var(--space-4);border-top:1px solid var(--border)}
+.app-dialog__choice{display:flex;align-items:flex-start;gap:var(--space-2);padding:var(--space-2) var(--space-3);min-height:44px;border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;font-weight:500}
+.app-dialog__choice:has(input:checked){border-color:var(--primary);background:var(--primary-soft)}
+.sim-note{display:flex;gap:.5rem;align-items:flex-start;padding:.6rem .8rem;border-radius:var(--radius-sm);background:var(--sim-bg);color:var(--sim-text);font-size:var(--text-sm);font-weight:600}
+
+/* Session cards / register */
+.session{gap:.5rem;border-left:4px solid var(--area-accent,var(--primary))}
+.auto-grid{display:grid;gap:var(--space-3);grid-template-columns:repeat(auto-fill,minmax(min(100%,18rem),1fr))}
+.roster{list-style:none;margin:0;padding:0;display:grid;gap:var(--space-2)}
+.roster li{display:flex;align-items:center;justify-content:space-between;gap:.75rem;flex-wrap:wrap;padding:.6rem .8rem;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface)}
+.roster__note{flex-basis:100%;color:var(--accent);font-size:var(--text-sm);font-weight:600}
+.seg{display:inline-flex;border:1px solid var(--border-strong);border-radius:var(--radius-sm);overflow:hidden}
+.seg button{font:inherit;font-size:var(--text-sm);font-weight:600;min-height:40px;padding:.3rem .75rem;border:0;border-right:1px solid var(--border);background:var(--surface);color:var(--text-muted);cursor:pointer}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed=true]{background:var(--primary-soft);color:var(--primary)}
+
+/* Website editor (editor-chrome / editor-panels, approximated) */
+.studio-page--full-window{max-width:none;padding:.75rem 1rem}
+.editor-frame-head{display:flex;align-items:baseline;flex-wrap:wrap;gap:.4rem 1rem}
+.editor-frame-head__name{font-size:1.15rem;margin:0}
+.ed-panes{display:grid;grid-template-columns:15rem minmax(0,1fr) 18rem;gap:1rem;align-items:start}
+.ed-pane{border:1px solid var(--border-strong);border-radius:var(--radius);background:var(--surface);padding:1rem;display:flex;flex-direction:column;gap:.6rem;min-width:0}
+.ed-pane h2{font-size:1rem;margin:0;display:flex;gap:.4rem;align-items:center}
+.ed-list{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.ed-list button{width:100%;display:flex;align-items:center;gap:.5rem;min-height:40px;padding:.35rem .6rem;border:1px solid transparent;border-radius:var(--radius-sm);background:none;color:var(--text);font:inherit;font-size:var(--text-sm);text-align:left;cursor:pointer}
+.ed-list button:hover{background:var(--surface-2)}
+.ed-list button[aria-current=true]{background:var(--primary-soft);color:var(--primary);font-weight:700;border-color:var(--primary)}
+.publish-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));gap:.75rem;padding:.75rem;border:1px solid var(--border-strong);border-top:4px solid var(--area-website);border-radius:var(--radius);background:var(--surface)}
+.publish-bar__card{display:flex;flex-direction:column;gap:.5rem;padding:.75rem;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface-2)}
+.publish-bar__card h3{display:flex;gap:.4rem;align-items:center;margin:0;font-size:.95rem}
+.save-flag{align-self:flex-start;padding:.2rem .6rem;border:1px solid var(--border);border-left:4px solid var(--primary);border-radius:6px;background:var(--surface);font-size:var(--text-sm);font-weight:650}
+.preview-frame{margin:0 auto;border:1px solid var(--border-strong);border-radius:10px;overflow:hidden;background:#fff;color:#1d1a17;width:100%;transition:max-width .2s}
+.site-hero{padding:2.2rem 1.4rem;background:linear-gradient(135deg,#2c2a6b,#7c3aed);color:#fff}
+.site-hero.warm{background:linear-gradient(135deg,#7a3a1c,#d9822b)}
+.site-hero.clean{background:#f4f5f7;color:#16181d;border-bottom:1px solid #e3e5ea}
+.site-hero h3{font-size:1.6rem;margin:0 0 .3rem;color:inherit}
+.site-nav{display:flex;gap:1rem;flex-wrap:wrap;padding:.6rem 1.2rem;font-size:.85rem;border-bottom:1px solid #e3e5ea;background:#fff;color:#1d1a17}
+.site-sec{padding:1rem 1.4rem;border-bottom:1px solid #eee;outline-offset:-3px}
+.site-sec[data-sel=true]{outline:2px dashed #3450f0}
+.site-sec h4{margin:0 0 .4rem;font-size:1rem}
+.site-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(9rem,1fr));gap:.6rem}
+.site-cards div{border:1px solid #e3e5ea;border-radius:8px;padding:.6rem;font-size:.85rem;background:#fafafa}
+.tpl-grid{display:grid;gap:.75rem;grid-template-columns:repeat(auto-fill,minmax(12rem,1fr))}
+.tpl{display:flex;flex-direction:column;gap:.4rem;padding:.75rem;border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;font-weight:500}
+.tpl:has(input:checked){border-color:var(--primary);background:var(--primary-soft)}
+.tpl__swatch{height:56px;border-radius:8px}
+
+/* ===== Phone layout via container queries (the app's 860px / 640px breakpoints) ===== */
+@container sl (max-width: 860px){
+  .studio-shell{grid-template-columns:minmax(0,1fr)}
+  .studio-nav__bar{display:flex;align-items:center;gap:.6rem;margin-bottom:.25rem}
+  .studio-nav__scrim{display:block;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:40}
+  .studio-nav{position:fixed;top:0;bottom:0;left:0;width:min(82%,320px);max-height:none;z-index:41;padding:1rem .75rem;background:var(--surface);border-right:1px solid var(--border);box-shadow:var(--shadow);transform:translateX(-102%);visibility:hidden}
+  .studio-nav[data-open=true]{transform:none;visibility:visible}
+  .studio-nav__close{display:flex;justify-content:flex-end;margin-bottom:.4rem}
+  .rail__link,.rail__sublink{min-height:44px}
+  .rail__toggle{min-height:44px;width:44px}
+  .home__grid{grid-template-columns:minmax(0,1fr)}
+  .ed-panes{grid-template-columns:minmax(0,1fr)}
+  .appbar__who,.appbar__cal{display:none}
+}
+@container sl (max-width: 640px){
+  .container{padding:1rem 1.5rem}
+  .appbar{padding:0 .75rem}
+  .appbar select{max-width:6.2rem}
+  .page-header__actions{width:100%}
+  .home__actions{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .home__top-actions{width:100%}
+  .home__top-actions>.btn{flex:1 1 auto}
+  .metric-tile__value{font-size:var(--text-h1)}
+  .task-card{flex-wrap:wrap;padding:var(--space-3)}
+  .task-card__action{width:100%}
+  .task-card__action>.btn{flex:1 1 auto}
+  .form-actions>.btn{flex:1 1 auto}
+  .app-dialog{width:calc(100% - 1rem)}
+  .app-dialog__panel{padding:var(--space-4)}
+  .app-dialog__actions>.btn{flex:1 1 auto}
+  .data-table__scroll{border:0;background:none;overflow:visible}
+  .data-table,.data-table thead,.data-table tbody,.data-table tr,.data-table td{display:block;width:100%}
+  .data-table thead{display:none}
+  .data-table tbody tr{border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);padding:var(--space-3);margin-bottom:var(--space-3);box-shadow:var(--shadow-sm)}
+  .data-table tbody tr:hover td{background:none}
+  .data-table td{display:flex;gap:var(--space-3);justify-content:space-between;align-items:baseline;padding:.2rem 0;border-bottom:0}
+  .data-table td::before{content:attr(data-label);flex:0 0 auto;color:var(--text-subtle);font-size:var(--text-xs);font-weight:650;text-transform:uppercase;letter-spacing:.04em}
+  .data-table td:not([data-label])::before{content:none}
+  .data-table td[data-primary]{display:block;font-size:var(--text-h3);margin-bottom:var(--space-2)}
+  .data-table td[data-actions]{justify-content:flex-start;flex-wrap:wrap;margin-top:var(--space-3);padding-top:var(--space-3);border-top:1px dashed var(--border)}
+  .btn,.btn-sm,input:not([type=checkbox]):not([type=radio]),select{min-height:48px}
+}
+
+/* ===== Preview chrome (NOT product UI) ===== */
+.lab{position:sticky;top:0;z-index:50;background:var(--lab-bg);color:var(--lab-text);border-bottom:1px solid var(--lab-line);font-size:13px}
+.lab__banner{padding:.35rem .9rem;background:var(--lab-accent);color:var(--lab-on-accent);font-weight:700;font-size:12.5px;overflow-wrap:anywhere}
+.lab__row{display:flex;flex-wrap:wrap;gap:.5rem .9rem;align-items:center;padding:.45rem .9rem}
+.lab__brand{font-weight:700;display:flex;gap:.5rem;align-items:center}
+.lab__mark{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:7px;background:var(--lab-accent);color:var(--lab-on-accent);font-size:11px;font-weight:800}
+.lab label{display:inline-flex;gap:.4rem;align-items:center;margin:0;font-size:12.5px;font-weight:600;color:var(--lab-muted)}
+.lab select{width:auto;min-height:32px;padding:.2rem .5rem;background:var(--lab-surface);color:var(--lab-text);border:1px solid var(--lab-line);border-radius:7px;font-size:13px}
+.lab__btn{display:inline-flex;align-items:center;gap:.35rem;min-height:32px;padding:.2rem .65rem;border:1px solid var(--lab-line);border-radius:7px;background:var(--lab-surface);color:var(--lab-text);font:inherit;font-size:12.5px;font-weight:600;cursor:pointer;text-decoration:none}
+.lab__btn:hover{text-decoration:none;border-color:var(--lab-accent)}
+.lab__btn[aria-pressed=true],.lab__btn[aria-current=page]{background:var(--lab-accent);color:var(--lab-on-accent);border-color:var(--lab-accent)}
+.lab__status{margin-left:auto;color:var(--lab-muted)}
+.recon{display:flex;gap:.5rem;align-items:flex-start;padding:.55rem .8rem;border:1px dashed var(--warning);border-radius:var(--radius-sm);background:var(--warning-bg);color:var(--warning);font-size:var(--text-sm);font-weight:600}
+.recon--ok{border-color:var(--success);background:var(--success-bg);color:var(--success)}
+.phone-stage{display:flex;justify-content:center;padding:1.25rem .5rem 2rem;background:var(--lab-bg)}
+.phone{width:410px;max-width:100%;padding:10px;border-radius:44px;background:var(--phone-bezel);box-shadow:0 30px 60px -30px rgba(0,0,0,.7)}
+.phone__screen{width:390px;max-width:100%;height:min(844px,calc(100vh - 9rem));overflow-y:auto;border-radius:34px;background:var(--bg);transform:translateZ(0);--lab-h:0px}
+.toasts{position:fixed;left:50%;bottom:1.2rem;transform:translateX(-50%);z-index:90;display:flex;flex-direction:column;gap:.5rem;align-items:center;width:min(92vw,30rem);pointer-events:none}
+.toasts .toast{display:flex;gap:.6rem;align-items:center;box-shadow:var(--shadow-lg);font-size:var(--text-sm);font-weight:600;transition:opacity .3s}
+.toasts .toast.out{opacity:0}
+.sim{display:inline-block;padding:.05rem .45rem;border-radius:999px;background:var(--sim-bg);color:var(--sim-text);font-size:11px;font-weight:800;letter-spacing:.02em;white-space:nowrap}
+.idx-table td,.idx-table th{vertical-align:top}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+
+</style>
+</head>
+<body>
+<div id="r2-root"><noscript><p style="padding:1rem">Release 2 preview — candidate 1482734507bd58889c4dd6bac41b1ffec56f18c2 — fictional data; actions are simulated. This preview needs JavaScript.</p></noscript></div>
+<div id="r2-toasts" class="toasts" role="status" aria-live="polite"></div>
+<script>
+(function(){
+'use strict';
+/* ================= utilities ================= */
+var ICONS={"house":"<path d=\"M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8\"/><path d=\"M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\"/>","clipboard-check":"<rect width=\"8\" height=\"4\" x=\"8\" y=\"2\" rx=\"1\" ry=\"1\"/><path d=\"M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2\"/><path d=\"m9 14 2 2 4-4\"/>","sticky-note":"<path d=\"M21 9a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 15 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2z\"/><path d=\"M15 3v5a1 1 0 0 0 1 1h5\"/>","tablet":"<rect width=\"16\" height=\"20\" x=\"4\" y=\"2\" rx=\"2\" ry=\"2\"/><line x1=\"12\" x2=\"12.01\" y1=\"18\" y2=\"18\"/>","calendar-range":"<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\"/><path d=\"M16 2v3\"/><path d=\"M3 9h18\"/><path d=\"M8 2v3\"/><path d=\"M17 13h-6\"/><path d=\"M13 17H7\"/><path d=\"M7 13h.01\"/><path d=\"M17 17h.01\"/>","book-open":"<path d=\"M12 5v16\"/><path d=\"M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z\"/>","calendar-days":"<path d=\"M8 2v3\"/><path d=\"M16 2v3\"/><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\"/><path d=\"M3 9h18\"/><path d=\"M8 13h.01\"/><path d=\"M12 13h.01\"/><path d=\"M16 13h.01\"/><path d=\"M8 17h.01\"/><path d=\"M12 17h.01\"/><path d=\"M16 17h.01\"/>","ticket":"<path d=\"M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z\"/><path d=\"M13 5v2\"/><path d=\"M13 17v2\"/><path d=\"M13 11v2\"/>","graduation-cap":"<path d=\"M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z\"/><path d=\"M22 10v6\"/><path d=\"M6 12.5V16a6 3 0 0 0 12 0v-3.5\"/>","users":"<path d=\"M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2\"/><path d=\"M16 3.128a4 4 0 0 1 0 7.744\"/><path d=\"M22 21v-2a4 4 0 0 0-3-3.87\"/><circle cx=\"9\" cy=\"7\" r=\"4\"/>","handshake":"<path d=\"m11 17 2 2a1 1 0 1 0 3-3\"/><path d=\"m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4\"/><path d=\"m21 3 1 11h-2\"/><path d=\"M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3\"/><path d=\"M3 4h8\"/>","contact":"<path d=\"M16 2v2\"/><path d=\"M7 21v-2a2 2 0 012-2h6a2 2 0 012 2v2\"/><path d=\"M8 2v2\"/><circle cx=\"12\" cy=\"10\" r=\"3\"/><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\"/>","list-checks":"<path d=\"M13 5h8\"/><path d=\"M13 12h8\"/><path d=\"M13 19h8\"/><path d=\"m3 17 2 2 4-4\"/><path d=\"m3 7 2 2 4-4\"/>","clipboard-list":"<rect width=\"8\" height=\"4\" x=\"8\" y=\"2\" rx=\"1\" ry=\"1\"/><path d=\"M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2\"/><path d=\"M12 11h4\"/><path d=\"M12 16h4\"/><path d=\"M8 11h.01\"/><path d=\"M8 16h.01\"/>","badge-check":"<path d=\"M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z\"/><path d=\"m9 12 2 2 4-4\"/>","credit-card":"<rect width=\"20\" height=\"14\" x=\"2\" y=\"5\" rx=\"2\"/><line x1=\"2\" x2=\"22\" y1=\"10\" y2=\"10\"/>","banknote":"<rect width=\"20\" height=\"12\" x=\"2\" y=\"6\" rx=\"2\"/><circle cx=\"12\" cy=\"12\" r=\"2\"/><path d=\"M6 12h.01M18 12h.01\"/>","message-square":"<path d=\"M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z\"/>","copy":"<rect width=\"14\" height=\"14\" x=\"8\" y=\"8\" rx=\"2\" ry=\"2\"/><path d=\"M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2\"/>","inbox":"<polyline points=\"22 12 16 12 14 15 10 15 8 12 2 12\"/><path d=\"M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z\"/>","megaphone":"<path d=\"M11 6a13 13 0 0 0 8.4-2.8A1 1 0 0 1 21 4v12a1 1 0 0 1-1.6.8A13 13 0 0 0 11 14H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z\"/><path d=\"M6 14a12 12 0 0 0 2.4 7.2 2 2 0 0 0 3.2-2.4A8 8 0 0 1 10 14\"/><path d=\"M8 6v8\"/>","file-text":"<path d=\"M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z\"/><path d=\"M14 2v5a1 1 0 0 0 1 1h5\"/><path d=\"M10 9H8\"/><path d=\"M16 13H8\"/><path d=\"M16 17H8\"/>","star":"<path d=\"M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z\"/>","globe":"<circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20\"/><path d=\"M2 12h20\"/>","map-pin":"<path d=\"M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0\"/><circle cx=\"12\" cy=\"10\" r=\"3\"/>","building-2":"<path d=\"M10 12h4\"/><path d=\"M10 8h4\"/><path d=\"M14 21v-3a2 2 0 0 0-4 0v3\"/><path d=\"M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2\"/><path d=\"M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16\"/>","shield-check":"<path d=\"M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z\"/><path d=\"m9 12 2 2 4-4\"/>","scroll-text":"<path d=\"M15 12h-5\"/><path d=\"M15 8h-5\"/><path d=\"M19 17V5a2 2 0 0 0-2-2H4\"/><path d=\"M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3\"/>","settings":"<path d=\"M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/>","sliders-horizontal":"<path d=\"M10 5H3\"/><path d=\"M12 19H3\"/><path d=\"M14 3v4\"/><path d=\"M16 17v4\"/><path d=\"M21 12h-9\"/><path d=\"M21 19h-5\"/><path d=\"M21 5h-7\"/><path d=\"M8 10v4\"/><path d=\"M8 12H3\"/>","compass":"<circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z\"/>","files":"<path d=\"M15 2h-4a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V8\"/><path d=\"M16.706 2.706A2.4 2.4 0 0 0 15 2v5a1 1 0 0 0 1 1h5a2.4 2.4 0 0 0-.706-1.706z\"/><path d=\"M5 7a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h8a2 2 0 0 0 1.732-1\"/>","activity":"<path d=\"M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2\"/>","wrench":"<path d=\"M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z\"/>","circle-question-mark":"<circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3\"/><path d=\"M12 17h.01\"/>","life-buoy":"<circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"m4.93 4.93 4.24 4.24\"/><path d=\"m14.83 9.17 4.24-4.24\"/><path d=\"m14.83 14.83 4.24 4.24\"/><path d=\"m9.17 14.83-4.24 4.24\"/><circle cx=\"12\" cy=\"12\" r=\"4\"/>","sparkles":"<path d=\"M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z\"/><path d=\"M20 2v4\"/><path d=\"M22 4h-4\"/><circle cx=\"4\" cy=\"20\" r=\"2\"/>","user-plus":"<path d=\"M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2\"/><circle cx=\"9\" cy=\"7\" r=\"4\"/><line x1=\"19\" x2=\"19\" y1=\"8\" y2=\"14\"/><line x1=\"22\" x2=\"16\" y1=\"11\" y2=\"11\"/>","send":"<path d=\"M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z\"/><path d=\"m21.854 2.147-10.94 10.939\"/>","plus":"<path d=\"M5 12h14\"/><path d=\"M12 5v14\"/>","chevron-down":"<path d=\"m6 9 6 6 6-6\"/>","chevron-right":"<path d=\"m9 18 6-6-6-6\"/>","menu":"<path d=\"M4 5h16\"/><path d=\"M4 12h16\"/><path d=\"M4 19h16\"/>","x":"<path d=\"M18 6 6 18\"/><path d=\"m6 6 12 12\"/>","pencil":"<path d=\"M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z\"/><path d=\"m15 5 4 4\"/>","eye":"<path d=\"M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/>","search":"<path d=\"m21 21-4.34-4.34\"/><circle cx=\"11\" cy=\"11\" r=\"8\"/>","check":"<path d=\"M20 6 9 17l-5-5\"/>","triangle-alert":"<path d=\"m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3\"/><path d=\"M12 9v4\"/><path d=\"M12 17h.01\"/>","info":"<circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 16v-4\"/><path d=\"M12 8h.01\"/>","external-link":"<path d=\"M15 3h6v6\"/><path d=\"M10 14 21 3\"/><path d=\"M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6\"/>","clock":"<circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 6v6l4 2\"/>","sun":"<circle cx=\"12\" cy=\"12\" r=\"4\"/><path d=\"M12 2v2\"/><path d=\"M12 20v2\"/><path d=\"m4.93 4.93 1.41 1.41\"/><path d=\"m17.66 17.66 1.41 1.41\"/><path d=\"M2 12h2\"/><path d=\"M20 12h2\"/><path d=\"m6.34 17.66-1.41 1.41\"/><path d=\"m19.07 4.93-1.41 1.41\"/>","moon":"<path d=\"M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401\"/>","monitor":"<rect width=\"20\" height=\"14\" x=\"2\" y=\"3\" rx=\"2\"/><line x1=\"8\" x2=\"16\" y1=\"21\" y2=\"21\"/><line x1=\"12\" x2=\"12\" y1=\"17\" y2=\"21\"/>","smartphone":"<rect width=\"14\" height=\"20\" x=\"5\" y=\"2\" rx=\"2\" ry=\"2\"/><path d=\"M12 18h.01\"/>","layout-grid":"<rect width=\"7\" height=\"7\" x=\"3\" y=\"3\" rx=\"1\"/><rect width=\"7\" height=\"7\" x=\"14\" y=\"3\" rx=\"1\"/><rect width=\"7\" height=\"7\" x=\"14\" y=\"14\" rx=\"1\"/><rect width=\"7\" height=\"7\" x=\"3\" y=\"14\" rx=\"1\"/>","arrow-left":"<path d=\"m12 19-7-7 7-7\"/><path d=\"M19 12H5\"/>","circle-check":"<circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"m9 12 2 2 4-4\"/>","upload":"<path d=\"M12 3v12\"/><path d=\"m17 8-5-5-5 5\"/><path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\"/>","download":"<path d=\"M12 15V3\"/><path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\"/><path d=\"m7 10 5 5 5-5\"/>","trash-2":"<path d=\"M10 11v6\"/><path d=\"M14 11v6\"/><path d=\"M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6\"/><path d=\"M3 6h18\"/><path d=\"M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2\"/>","mail":"<path d=\"m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7\"/><rect x=\"2\" y=\"4\" width=\"20\" height=\"16\" rx=\"2\"/>","phone":"<path d=\"M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384\"/>","user":"<path d=\"M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2\"/><circle cx=\"12\" cy=\"7\" r=\"4\"/>","layout-template":"<rect width=\"18\" height=\"7\" x=\"3\" y=\"3\" rx=\"1\"/><rect width=\"9\" height=\"7\" x=\"3\" y=\"14\" rx=\"1\"/><rect width=\"5\" height=\"7\" x=\"16\" y=\"14\" rx=\"1\"/>","palette":"<path d=\"M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z\"/><circle cx=\"13.5\" cy=\"6.5\" r=\".5\" fill=\"currentColor\"/><circle cx=\"17.5\" cy=\"10.5\" r=\".5\" fill=\"currentColor\"/><circle cx=\"6.5\" cy=\"12.5\" r=\".5\" fill=\"currentColor\"/><circle cx=\"8.5\" cy=\"7.5\" r=\".5\" fill=\"currentColor\"/>","image":"<rect width=\"18\" height=\"18\" x=\"3\" y=\"3\" rx=\"2\" ry=\"2\"/><circle cx=\"9\" cy=\"9\" r=\"2\"/><path d=\"m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21\"/>","type":"<path d=\"M12 4v16\"/><path d=\"M4 7V5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2\"/><path d=\"M9 20h6\"/>","grip-vertical":"<circle cx=\"9\" cy=\"12\" r=\"1\"/><circle cx=\"9\" cy=\"5\" r=\"1\"/><circle cx=\"9\" cy=\"19\" r=\"1\"/><circle cx=\"15\" cy=\"12\" r=\"1\"/><circle cx=\"15\" cy=\"5\" r=\"1\"/><circle cx=\"15\" cy=\"19\" r=\"1\"/>","arrow-up":"<path d=\"m5 12 7-7 7 7\"/><path d=\"M12 19V5\"/>","arrow-down":"<path d=\"M12 5v14\"/><path d=\"m19 12-7 7-7-7\"/>","lock":"<rect width=\"18\" height=\"11\" x=\"3\" y=\"11\" rx=\"2\" ry=\"2\"/><path d=\"M7 11V7a5 5 0 0 1 10 0v4\"/>","plane":"<path d=\"M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z\"/>","bell":"<path d=\"M10.268 21a2 2 0 0 0 3.464 0\"/><path d=\"M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326\"/>","receipt":"<path d=\"M12 17V7\"/><path d=\"M16 8h-6a2 2 0 0 0 0 4h4a2 2 0 0 1 0 4H8\"/><path d=\"M4 3a1 1 0 0 1 1-1 1.3 1.3 0 0 1 .7.2l.933.6a1.3 1.3 0 0 0 1.4 0l.934-.6a1.3 1.3 0 0 1 1.4 0l.933.6a1.3 1.3 0 0 0 1.4 0l.933-.6a1.3 1.3 0 0 1 1.4 0l.934.6a1.3 1.3 0 0 0 1.4 0l.933-.6A1.3 1.3 0 0 1 19 2a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1 1.3 1.3 0 0 1-.7-.2l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.934.6a1.3 1.3 0 0 1-1.4 0l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-1.4 0l-.934-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-.7.2 1 1 0 0 1-1-1z\"/>","qr-code":"<rect width=\"5\" height=\"5\" x=\"3\" y=\"3\" rx=\"1\"/><rect width=\"5\" height=\"5\" x=\"16\" y=\"3\" rx=\"1\"/><rect width=\"5\" height=\"5\" x=\"3\" y=\"16\" rx=\"1\"/><path d=\"M21 16h-3a2 2 0 0 0-2 2v3\"/><path d=\"M21 21v.01\"/><path d=\"M12 7v3a2 2 0 0 1-2 2H7\"/><path d=\"M3 12h.01\"/><path d=\"M12 3h.01\"/><path d=\"M12 16v.01\"/><path d=\"M16 12h1\"/><path d=\"M21 12v.01\"/><path d=\"M12 21v-1\"/>","link":"<path d=\"M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71\"/><path d=\"M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71\"/>","funnel":"<path d=\"M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z\"/>","rotate-ccw-clock":"<path d=\"M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8\"/><path d=\"M3 3v5h5\"/><path d=\"M12 7v5l4 2\"/>"};
+var CANDIDATE='1482734507bd58889c4dd6bac41b1ffec56f18c2';
+var $=function(s,el){return (el||document).querySelector(s);};
+var esc=function(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});};
+var g=function(name,size){var s=size||18;return '<svg class="glyph" width="'+s+'" height="'+s+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">'+(ICONS[name]||'')+'</svg>';};
+var store={
+  get:function(k,d){try{var v=window.localStorage.getItem(k);return v==null?d:JSON.parse(v);}catch(e){return d;}},
+  set:function(k,v){try{window.localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
+};
+
+/* ================= fictional studio ================= */
+var STUDIO={name:'Northlight Dance Rooms',slug:'northlight',web:'northlight.example'};
+var ROLES=[
+  {key:'owner',label:'Owner',name:'Maya Lindqvist',roles:['studio_owner']},
+  {key:'admin',label:'Admin',name:'Jonah Reyes',roles:['studio_admin']},
+  {key:'opslead',label:'Operations lead',name:'Priya Natarajan',roles:['operations_lead']},
+  {key:'instructor',label:'Instructor',name:'Leo Hartmann',roles:['instructor']},
+  {key:'assistant',label:'Attendance Assistant',name:'Sam Achebe',roles:['attendance_assistant']},
+  {key:'readonly',label:'Read Only',name:'Ruth Calloway',roles:['read_only']}
+];
+var ROLE=function(k){for(var i=0;i<ROLES.length;i++)if(ROLES[i].key===k)return ROLES[i];return ROLES[0];};
+/* Permissions, from src/domain/roles.ts ROLE_PERMISSIONS */
+var CAN={
+  configure:{owner:1,admin:1,opslead:1},           /* studio:manage */
+  ownerAdmin:{owner:1,admin:1},
+  finance:{owner:1,admin:1},                        /* finance:read */
+  members:{owner:1,admin:1},                        /* members:manage */
+  mark:{owner:1,admin:1,opslead:1,instructor:1,assistant:1}, /* attendance:mark */
+  focused:{instructor:1,assistant:1}                /* isAttendanceFocused */
+};
+var can=function(p,r){return !!CAN[p][r||S.role];};
+
+/* ================= the registry: STUDIO_NAV (src/domain/studio-nav.ts) =================
+   Studio tenant, product mode "full": every module on except private_instruction. Plans freeze assumed ON. */
+var MODS_OFF={private_instruction:1};
+var NAV=[
+  {seg:'',label:'Home',ws:'sfo'},
+  {seg:'attendance',label:'Attendance / Check-In',ws:'sof',mod:'studio_operations'},
+  {seg:'kiosks',label:'Front-desk tablet',cfg:1,mod:'studio_operations'},
+  {seg:'kiosk-content',label:'Kiosk messages',cfg:1,mod:'studio_operations'},
+  {seg:'my-teaching',label:'My teaching',ws:'f',mod:'class_programme'},
+  {seg:'inbox',label:'Inbox',cfg:1,mod:'enrollment_ops'},
+  {seg:'cycles',label:'Programs',cfg:1,mod:'class_programme'},
+  {seg:'classes',label:'Classes',mod:'class_programme'},
+  {seg:'enrollment',label:'Rosters',cfg:1,oa:1,fin:1,mod:'enrollment_ops'},
+  {seg:'planner',label:'Planner',cfg:1,mod:'class_programme'},
+  {seg:'events',label:'Events',mod:'studio_operations'},
+  {seg:'students',label:'Students'},
+  {seg:'crm',label:'Leads',cfg:1,mod:'enrollment_ops'},
+  {seg:'audience',label:'Contacts & consent',cfg:1,mod:'enrollment_ops'},
+  {seg:'staffing',label:'Staffing',cfg:1,mod:'studio_operations'},
+  {seg:'checkin-alerts',label:'Front-desk notes',cfg:1,mod:'studio_operations'},
+  {seg:'registrations',label:'Sign-ups',cfg:1,fin:1,mod:'public_registration'},
+  {seg:'payments',label:'Payments',cfg:1,fin:1,mod:'enrollment_ops'},
+  {seg:'access',label:'Passes & credits',cfg:1,fin:1,mod:'enrollment_ops'},
+  {seg:'finance',label:'Finance',cfg:1,fin:1,mod:'enrollment_ops'},
+  {seg:'plans',label:'Plans (legacy)',cfg:1,fin:1,mod:'enrollment_ops',legacy:1},
+  {seg:'website',label:'Website',cfg:1,mod:'public_registration'},
+  {seg:'forms',label:'Forms',cfg:1,mod:'enrollment_ops'},
+  {seg:'comms',label:'Messages',cfg:1,mod:'enrollment_ops'},
+  {seg:'notices',label:'Change notices',cfg:1,mod:'class_programme'},
+  {seg:'templates',label:'Templates',cfg:1,mod:'enrollment_ops'},
+  {seg:'broadcasts',label:'Broadcasts',cfg:1,mod:'enrollment_ops'},
+  {seg:'outreach',label:'Follow-ups',cfg:1,mod:'studio_operations'},
+  {seg:'voice',label:'Feedback & surveys',cfg:1,mod:'enrollment_ops'},
+  {seg:'profile',label:'Studio profile',cfg:1,oa:1},
+  {seg:'owners',label:'Owners & contacts'},
+  {seg:'settings',label:'Settings',cfg:1},
+  {seg:'support-access',label:'Support access',cfg:1,oa:1},
+  {seg:'lessons',label:'Offerings',cfg:1,mod:'private_instruction'},
+  {seg:'availability',label:'Availability',cfg:1,mod:'private_instruction'},
+  {seg:'travel',label:'Travel',cfg:1,mod:'private_instruction'},
+  {seg:'bookings',label:'Bookings',cfg:1,mod:'private_instruction'},
+  {seg:'locations',label:'Locations',cfg:1},
+  {seg:'team',label:'Team'},
+  {seg:'policies',label:'Policies',cfg:1,mod:'public_registration'},
+  {seg:'setup',label:'Set up',cfg:1,mod:'class_programme'},
+  {seg:'imports',label:'Import',cfg:1,mod:'studio_operations'},
+  {seg:'reports',label:'Reports'},
+  {seg:'diagnostics',label:'System check',cfg:1},
+  {seg:'readiness',label:'Go-live check',cfg:1},
+  {seg:'audit',label:'Audit',cfg:1,fin:1},
+  {seg:'features',label:'Features',cfg:1,oa:1},
+  {seg:'help',label:'Help'}
+];
+var NAVBY={};NAV.forEach(function(n){NAVBY[n.seg]=n;});
+/* NAV_ICONS (src/components/icons.tsx) — notices and broadcasts have none */
+var NAV_ICON={'':'house',attendance:'clipboard-check','checkin-alerts':'sticky-note',kiosks:'tablet',cycles:'calendar-range',classes:'book-open',planner:'calendar-days',events:'ticket','my-teaching':'graduation-cap',students:'users',crm:'handshake',audience:'contact',enrollment:'list-checks',registrations:'clipboard-list',plans:'badge-check',payments:'credit-card',finance:'banknote',comms:'message-square',templates:'copy',inbox:'inbox',outreach:'megaphone',forms:'file-text',voice:'star',website:'globe',profile:'contact',locations:'map-pin',team:'users',staffing:'users',owners:'building-2',access:'shield-check',policies:'scroll-text',settings:'settings',features:'sliders-horizontal',setup:'compass',imports:'files',reports:'activity',diagnostics:'wrench',readiness:'shield-check',audit:'rotate-ccw-clock',help:'circle-question-mark','support-access':'life-buoy'};
+var RAIL_ICON={today:'sparkles',schedule:'calendar-range',people:'users',communications:'message-square',money:'credit-card',website:'globe',settings:'settings',help:'circle-question-mark'};
+/* STUDIO_RAIL (src/domain/studio-rail.ts) */
+var RAIL=[
+  {key:'today',label:'Today',hint:'Home, check-in, front-desk notes and your teaching',place:'primary',segs:['','attendance','checkin-alerts','my-teaching'],overview:''},
+  {key:'schedule',label:'Schedule',hint:'Programs, classes, events and the planner',place:'primary',segs:['cycles','classes','events','planner','bookings','lessons','availability','travel'],itemLabels:{classes:'All Classes'}},
+  {key:'people',label:'People',hint:'Students, sign-ups, rosters, leads and staffing',place:'primary',segs:['students','registrations','enrollment','crm','staffing']},
+  {key:'communications',label:'Communications',hint:'Inbox, messages, broadcasts, notices, follow-ups, forms, surveys and contacts',place:'primary',segs:['inbox','comms','templates','broadcasts','notices','outreach','forms','voice','audience']},
+  {key:'money',label:'Money & reports',hint:'Payments, passes, finance and reports',place:'primary',segs:['payments','access','finance','plans','reports']},
+  {key:'website',label:'Website',hint:'What the public sees',place:'primary',segs:['website']},
+  {key:'settings',label:'Settings',hint:'Studio details, places, team, policies, the front desk, and setup & health',place:'footer',segs:['settings','profile','owners','team','locations','policies','kiosks','kiosk-content','support-access','setup','imports','diagnostics','readiness','features','audit'],sub:{label:'Setup & health',segs:['setup','imports','diagnostics','readiness','features','audit']},itemLabels:{settings:'Studio settings'}},
+  {key:'help',label:'Help',hint:'Guides and answers',place:'footer',segs:['help']}
+];
+var RAILBY={};RAIL.forEach(function(r){RAILBY[r.key]=r;});
+var BLURB={'':'What needs you today',attendance:'Take the register and check people in',kiosks:'Self check-in at the door','kiosk-content':'What the tablet says and asks','my-teaching':'Your classes and their registers',inbox:'Replies waiting on you',cycles:'Terms, seasons and series',classes:'Every class, across programs',enrollment:'Who is in each class',planner:'When terms open and run',events:'Socials, workshops and tickets',students:'Your people and their details',crm:'People who have not joined yet',audience:'Who may be contacted, and how',staffing:'Who covers which class','checkin-alerts':'Notes shown at check-in',registrations:'Everyone who signed up',payments:'Money received and owed',access:'Passes, credit packs and agreements',finance:'Payouts, costs and totals',plans:'Older plans, read-only',website:'Your public pages',forms:'Questions you ask people',comms:'What is sent automatically, and when',templates:'Saved wording for your messages',notices:'Tell students about changed dates',broadcasts:'One message to a group',outreach:'People worth a follow-up',voice:'Send surveys, read the answers',profile:'Name, address and contacts',owners:'Who is responsible here',settings:'How the studio runs','support-access':'Let support look in, or not',locations:'Where you teach',team:'Staff, invitations and roles',policies:'Terms and waivers',setup:'Guided setup steps',imports:'Bring in students and classes',reports:'Attendance, exports and totals',diagnostics:'Is anything wrong right now?',readiness:'Ready to go live?',audit:'A record of every change',features:'Turn tools on or off',help:'Guides and answers'};
+
+function authorized(n,r){
+  if(n.cfg&&!can('configure',r))return false;
+  if(n.oa&&!can('ownerAdmin',r))return false;
+  if(n.fin&&!can('finance',r))return false;
+  if(n.legacy)return false; /* plans freeze applies */
+  return true;
+}
+function moduleOn(n){return !n.mod||!MODS_OFF[n.mod];}
+function visibleSegs(r){
+  var focused=can('focused',r);
+  return NAV.filter(function(n){
+    if(focused)return (n.ws||'').indexOf('f')>=0&&authorized(n,r)&&moduleOn(n);
+    return authorized(n,r)&&moduleOn(n);
+  }).map(function(n){return n.seg;});
+}
+function railFor(r){
+  var vis=visibleSegs(r),set={};vis.forEach(function(s){set[s]=1;});
+  var out=[];
+  RAIL.forEach(function(def){
+    var subSegs=def.sub?def.sub.segs:[];
+    var main=def.segs.filter(function(s){return subSegs.indexOf(s)<0&&set[s];});
+    var sub=subSegs.filter(function(s){return set[s];});
+    var items=main.concat(sub);
+    if(!items.length)return;
+    var groups=[];if(main.length)groups.push({label:null,items:main});if(sub.length)groups.push({label:def.sub.label,items:sub});
+    out.push({key:def.key,def:def,items:items,groups:groups,group:items.length>1});
+  });
+  return out;
+}
+function railItemLabel(key,seg,r){
+  var def=RAILBY[key];
+  if(key==='today'&&seg==='attendance'&&!can('focused',r))return "Today's check-in"; /* workspaceItemLabels.studio */
+  return (def.itemLabels&&def.itemLabels[seg])||NAVBY[seg].label;
+}
+function areaOfSeg(seg){for(var i=0;i<RAIL.length;i++)if(RAIL[i].segs.indexOf(seg)>=0)return RAIL[i].key;return 'settings';}
+
+/* ================= state ================= */
+var S={
+  role:'owner',page:'home',arg:null,
+  theme:store.get('sl-r2-theme',null),
+  frame:store.get('sl-r2-frame',null),
+  drawer:false,flips:{},dialog:null,
+  homeFocus:'classes',progWs:'active',evTab:'upcoming',newProgram:false,newEvent:false,addStudent:false,
+  edPage:'home',edSection:'hero',edWidth:'desktop',edTemplate:'image-forward',draftSaved:true,
+  att:{},finalized:{},search:''
+};
+
+/* ================= fictional records ================= */
+var TEACH={lh:'Leo Hartmann',am:'Ana Moreau',tw:'Tobias Wren',ka:'Keiko Arai'};
+var PROGRAMS=[
+  {id:'fall26',name:'Fall 2026',start:'Sep 28, 2026',end:'Dec 13, 2026',status:'active',week:8,weeks:11,classes:9},
+  {id:'win27',name:'Winter 2027',start:'Jan 11, 2027',end:'Mar 21, 2027',status:'open',classes:7},
+  {id:'spr27',name:'Spring 2027',start:'Apr 5, 2027',end:'Jun 13, 2027',status:'draft',classes:0},
+  {id:'sum26',name:'Summer 2026',start:'Jun 29, 2026',end:'Aug 23, 2026',status:'completed',classes:6}
+];
+var STATUS_LABEL={draft:'Draft',open:'Open',active:'Active',completed:'Completed',archived:'Archived'};
+var STATUS_TONE={draft:'badge-neutral',open:'badge-info',active:'badge-success',completed:'badge-neutral',archived:'badge-neutral'};
+var NEXT_VERB={draft:'Open sign-ups',open:'Activate',active:'Complete'};
+var CLASSES=[
+  {id:'c1',name:'Contemporary Foundations',day:'Mon',time:'6:00–7:15 pm',room:'Harbour Street · Studio A',t:'lh',en:18,cap:20},
+  {id:'c2',name:'Jazz Level 1',day:'Tue',time:'7:00–8:15 pm',room:'Harbour Street · Studio B',t:'am',en:14,cap:18},
+  {id:'c3',name:'Ballet Basics (Adults)',day:'Wed',time:'6:30–7:30 pm',room:'Harbour Street · Studio A',t:'ka',en:20,cap:20},
+  {id:'c4',name:'Hip-Hop Teens',day:'Tue',time:'4:30–5:30 pm',room:'Canal Hall',t:'tw',en:16,cap:22},
+  {id:'c5',name:'Tap Level 2',day:'Thu',time:'7:30–8:30 pm',room:'Harbour Street · Studio B',t:'am',en:9,cap:14},
+  {id:'c6',name:'Lyrical Level 2',day:'Tue',time:'6:00–7:15 pm',room:'Harbour Street · Studio A',t:'lh',en:12,cap:16},
+  {id:'c7',name:'Breaking Kids',day:'Sat',time:'10:00–11:00 am',room:'Canal Hall',t:'tw',en:11,cap:16},
+  {id:'c8',name:'Contemporary Level 2',day:'Thu',time:'6:00–7:15 pm',room:'Harbour Street · Studio A',t:'lh',en:10,cap:16},
+  {id:'c9',name:'Stretch & Conditioning',day:'Sun',time:'11:00 am–12:00 pm',room:'Harbour Street · Studio B',t:'ka',en:15,cap:20}
+];
+var CLS={};CLASSES.forEach(function(c){CLS[c.id]=c;});
+/* today = Tuesday, Nov 17, 2026 */
+var SESSIONS=[
+  {id:'s4',cls:'c4',when:'4:30 pm',date:'Today',state:'finalized'},
+  {id:'s6',cls:'c6',when:'6:00 pm',date:'Today',state:'open'},
+  {id:'s2',cls:'c2',when:'7:00 pm',date:'Today',state:'scheduled'},
+  {id:'s3',cls:'c3',when:'6:30 pm',date:'Wed, Nov 18',state:'scheduled'},
+  {id:'s8',cls:'c8',when:'6:00 pm',date:'Thu, Nov 19',state:'scheduled'},
+  {id:'s5',cls:'c5',when:'7:30 pm',date:'Thu, Nov 19',state:'scheduled'},
+  {id:'s7',cls:'c7',when:'10:00 am',date:'Sat, Nov 21',state:'scheduled'}
+];
+var SESS={};SESSIONS.forEach(function(s){SESS[s.id]=s;});
+var PEOPLE=['Aria Bello','Ben Castellano','Chloe Dubois','Dev Mehta','Elif Kaya','Finn Gallagher','Grace Holloway','Hana Sato','Isaac Novak','Jade Okonkwo','Kai Lindgren','Lena Petrov','Milo Ferreira','Nora Quinlan','Omar Saleh','Paloma Ruiz','Quinn Avery','Rosa Delgado'];
+var STUDENTS=PEOPLE.map(function(n,i){var f=n.split(' ');return {name:n,email:(f[0]+'.'+f[1]).toLowerCase()+'@example.test',phone:'+1555010'+String(1000+i*37).slice(-4),ext:'NL-'+(1040+i)};});
+var NOTES={'Finn Gallagher':'Back after a knee injury — no jumps this term.','Hana Sato':'Balance of $20 from Fall — collect at the desk.'};
+var EVENTS=[
+  {id:'e1',name:'Friday Social',type:'Social',date:'Fri, Nov 20, 2026',time:'9:00 pm',venue:'Canal Hall',sold:46,cap:120,state:'Published'},
+  {id:'e2',name:'Winter Showcase',type:'Performance',date:'Sat, Dec 12, 2026',time:'6:00 pm',venue:'Canal Hall',sold:88,cap:150,state:'Published'},
+  {id:'e3',name:'Heels Workshop',type:'Workshop',date:'Sun, Dec 6, 2026',time:'2:00 pm',venue:'Harbour Street · Studio B',sold:12,cap:24,state:'Published'},
+  {id:'e4',name:'New Year Open House',type:'Open house',date:'Sat, Jan 9, 2027',time:'11:00 am',venue:'Harbour Street',sold:0,cap:60,state:'Draft'}
+];
+var PAST_EVENTS=[{id:'e0',name:'Halloween Social',type:'Social',date:'Sat, Oct 31, 2026',time:'9:00 pm',venue:'Canal Hall',sold:97,cap:120,state:'Finished'}];
+var TEAM=[
+  {name:'Maya Lindqvist',email:'maya@northlight.example',roles:['Owner']},
+  {name:'Jonah Reyes',email:'jonah@northlight.example',roles:['Admin']},
+  {name:'Priya Natarajan',email:'priya@northlight.example',roles:['Operations lead']},
+  {name:'Leo Hartmann',email:'leo@northlight.example',roles:['Instructor'],teaches:'Contemporary Foundations, Lyrical Level 2, Contemporary Level 2'},
+  {name:'Ana Moreau',email:'ana@northlight.example',roles:['Instructor'],teaches:'Jazz Level 1, Tap Level 2'},
+  {name:'Tobias Wren',email:'tobias@northlight.example',roles:['Instructor'],teaches:'Hip-Hop Teens, Breaking Kids'},
+  {name:'Keiko Arai',email:'keiko@northlight.example',roles:['Instructor'],teaches:'Ballet Basics (Adults), Stretch & Conditioning'},
+  {name:'Sam Achebe',email:'sam@northlight.example',roles:['Attendance Assistant']},
+  {name:'Ruth Calloway',email:'ruth@northlight.example',roles:['Read Only']}
+];
+var ROLE_INFO=[['Owner','Everything, including money, team and whether the site is live.'],['Admin','The same as an owner in the app.'],['Operations lead','Runs the studio day to day: no money and no team management.'],['Instructor','Their own classes and registers.'],['Attendance Assistant','Takes the register and checks people in.'],['Read Only','Can look, cannot change anything.']];
+
+/* ================= screen status (index page) ================= */
+var OK='Matches implementation (from source)';
+var AW='Awaiting reconciliation with the implementation';
+var SCREEN_STATUS={
+  shell:[OK,'src/app/app/app-shell.tsx, studios/[studioId]/layout.tsx, components/studio-nav.tsx, domain/studio-rail.ts, studio-nav.ts, roles.ts; screenshots of every page header and the phone Menu bar.'],
+  home:[OK,'studios/[studioId]/page.tsx + lib/home-data.ts + domain/home-view.ts; light/dark phone screenshots. Today rows and money figures are fictional.'],
+  area:[OK,'area/[area]/area-overview.tsx, components/area-card-groups.tsx; Communications screenshot.'],
+  cycles:[OK,'cycles/page.tsx + domain/program-workspace.ts; dark phone screenshot. Program card body (dates, meter, actions) laid out from source, no screenshot of a filled card.'],
+  students:[OK,'students/page.tsx; light phone screenshot.'],
+  comms:[OK,'comms/page.tsx sections and wording; the only screenshot shows the loading state.'],
+  templates:[OK,'templates/page.tsx; light phone screenshot.'],
+  settings:[OK,'settings/page.tsx; light phone screenshot.'],
+  site:[OK,'website/site + components/site-editor/editor-shell.tsx, publish-bar.tsx, preview-pane.tsx, domain/site-templates.ts; screenshot of the publish bar. The three panes and the preview content are approximated.'],
+  classes:[AW,'Header, filter and wording from classes/page.tsx; the class list rows are approximated (no screenshot).'],
+  attendance:[AW,'Sections and card wording from attendance/page.tsx; no screenshot.'],
+  register:[AW,'Wording from sessions/[sessionId]/attendance/page.tsx (2,957 lines); layout approximated, no screenshot.'],
+  events:[AW,'Form fields and tabs from events/page.tsx; event cards approximated, no screenshot.'],
+  team:[AW,'Sections from team/page.tsx; member rows approximated, no screenshot.'],
+  'my-teaching':[AW,'Headings from my-teaching/page.tsx; rows approximated.'],
+  website:[AW,'Title and sections from website/page.tsx; layout approximated.'],
+  broadcasts:[AW,'Broadcasts forwards to the composer card on Contacts & consent; composer approximated.'],
+  placeholder:[AW,'Placeholder: real page title and area cards only; the page body was not reproduced.']
+};
+var PAGE_TITLE={attendance:'Attendance / Check-In',kiosks:'Front-desk tablet','kiosk-content':'Kiosk messages & questions','my-teaching':'My teaching',inbox:'Inbox',cycles:'Programs',classes:'Classes',enrollment:'Rosters',planner:'Annual planner',events:'Events & socials',students:'Students',crm:'Leads',audience:'Contacts & consent',staffing:'Staffing','checkin-alerts':'Alerts',registrations:'Sign-ups',payments:'Payments (manual records)',access:'Passes & credits',finance:'Money',website:'Website & Sharing',forms:'Forms',comms:'Messages',notices:'Change notices',templates:'Templates',broadcasts:'Broadcasts',outreach:'Follow-ups',voice:'Feedback & surveys',profile:'Studio profile',owners:'Owners & contacts',settings:'Studio settings','support-access':'Support access',locations:'Locations',team:'Team',policies:'Policies & waivers',setup:'Guided setup',imports:'Import roster',reports:'Reports',diagnostics:'System check',readiness:'Go-live check',audit:'Audit journal',features:'Features',help:'Help Center'};
+var PAGE_DESC={'checkin-alerts':'Notes the front desk sees when a student checks in. They never block check-in.',kiosks:'A shared tablet students check themselves in on — also called a kiosk.','kiosk-content':'What the front-desk tablet says before a check-in, and the one quick question it may ask after.',enrollment:'Who is in each class of a program, who is waiting and who left — move and withdraw from here.',finance:'What came in and what is owed, each on its own basis — never blended.',notices:'Cancelled, moved or re-staffed class dates whose students have not been told yet — soonest first — the notices sent recently, and the messages your team wrote to classes.',locations:'Teaching venues — the physical places where classes and events happen.','support-access':'Whether Scene Lead support may look at this studio, what they opened, and how to stop it.',reports:'Attendance, capacity and roster history for this studio — read one on screen, then export it as CSV.',website:'Everything public-facing in one place — nothing is visible to anyone until you publish it.',policies:'Paste your exact policy text — it is stored word-for-word and shown to students right before they submit a registration.'};
+/* pages that draw AreaPages under their header (grep of <AreaPages in the candidate) */
+var HAS_AREA_PAGES={access:1,audience:1,audit:1,comms:1,features:1,finance:1,forms:1,imports:1,inbox:1,locations:1,notices:1,outreach:1,owners:1,payments:1,planner:1,policies:1,profile:1,readiness:1,reports:1,settings:1,setup:1,'support-access':1,team:1,templates:1,voice:1,diagnostics:1};
+
+/* ================= small renderers ================= */
+function href(page,role){return '#'+(role||S.role)+'-'+page;}
+function segPage(seg){return seg===''?'home':seg;}
+function ph(o){
+  return '<header class="page-header"><div class="page-header__row"><div class="page-header__titles"><h1 class="page-header__title" id="page-title" tabindex="-1">'+(o.icon?'<span class="page-header__icon">'+g(o.icon,24)+'</span>':'')+'<span>'+esc(o.title)+'</span></h1>'+(o.desc?'<p class="page-header__description">'+esc(o.desc)+'</p>':'')+'</div>'+(o.actions?'<div class="page-header__actions">'+o.actions+'</div>':'')+'</div></header>';
+}
+function section(title,body,o){o=o||{};
+  return '<section class="section card'+(o.tone?' section--'+o.tone:'')+'"'+(o.id?' id="'+o.id+'"':'')+'><div class="section__head"><div class="section__titles"><h2 class="section__title">'+esc(title)+'</h2>'+(o.desc?'<p class="section__description">'+esc(o.desc)+'</p>':'')+'</div>'+(o.actions?'<div class="section__actions">'+o.actions+'</div>':'')+'</div><div class="section__body">'+body+'</div></section>';
+}
+function flushSection(title,body){return '<section class="section"><h2 class="section__title">'+esc(title)+'</h2>'+body+'</section>';}
+function empty(icon,title,hint,actions,kind){return '<div class="empty-state'+(kind?' empty-state--'+kind:'')+'"><span class="empty-state__icon">'+g(icon,22)+'</span><div class="empty-state__title">'+esc(title)+'</div>'+(hint?'<div class="empty-state__hint">'+esc(hint)+'</div>':'')+(actions?'<div class="row" style="justify-content:center">'+actions+'</div>':'')+'</div>';}
+function field(label,input,o){o=o||{};return '<div class="field"><label class="field__label" for="'+(o.id||'')+'">'+esc(label)+(o.req?' <span class="field__required">required</span>':'')+'</label>'+input+(o.hint?'<p class="field__hint">'+esc(o.hint)+'</p>':'')+'</div>';}
+function inp(id,val,ph_,type){return '<input id="'+id+'" type="'+(type||'text')+'" value="'+esc(val||'')+'" placeholder="'+esc(ph_||'')+'">';}
+function sel(id,opts,cur){return '<select id="'+id+'">'+opts.map(function(o){var v=Array.isArray(o)?o[0]:o,l=Array.isArray(o)?o[1]:o;return '<option value="'+esc(v)+'"'+(v===cur?' selected':'')+'>'+esc(l)+'</option>';}).join('')+'</select>';}
+function simBtn(label,msg,cls){return '<button type="button" class="btn '+(cls||'')+'" data-act="sim" data-msg="'+esc(msg||'')+'">'+label+'</button>';}
+function dlgBtn(label,dlg,cls,arg){return '<button type="button" class="btn '+(cls||'')+'" data-act="dlg" data-dlg="'+dlg+'"'+(arg?' data-arg="'+esc(arg)+'"':'')+'>'+label+'</button>';}
+function recon(key){var st=SCREEN_STATUS[key]||SCREEN_STATUS.placeholder;var ok=st[0]===OK;return '<p class="recon'+(ok?' recon--ok':'')+'" data-preview-note>'+g(ok?'circle-check':'info',16)+'<span><span class="sim">Preview note</span> '+esc(st[0])+'</span></p>';}
+function actionMenu(label,items){return '<details class="action-menu"><summary class="btn btn-sm" aria-label="'+esc(label)+'">'+g('menu',16)+'More</summary><div class="action-menu__list">'+items.map(function(i){return '<button type="button" data-act="sim" data-msg="'+esc(i)+'">'+esc(i)+'</button>';}).join('')+'</div></details>';}
+function teacherName(c){return TEACH[c.t];}
+
+/* AreaPages / AreaCardGroups */
+function areaCards(areaKey,currentSeg,overview){
+  var sec=railFor(S.role).filter(function(s){return s.key===areaKey;})[0];
+  if(!sec)return '';
+  var ovSeg=RAILBY[areaKey].overview;
+  var groups=sec.groups.map(function(gr){return {label:gr.label,items:gr.items.filter(function(s){return s!==ovSeg;})};}).filter(function(gr){return gr.items.length;});
+  var n=0;groups.forEach(function(gr){n+=gr.items.length;});
+  if(n<2&&!overview)return '';
+  var title=RAILBY[areaKey].label;
+  var cards=function(items){return '<ul class="area-grid"'+(overview?' aria-label="'+esc(title)+'"':'')+'>'+items.map(function(seg){
+    var ic=NAV_ICON[seg];
+    return '<li><a class="pcard" href="'+href(segPage(seg))+'"'+(seg===currentSeg?' aria-current="page"':'')+'>'+(ic?'<span class="pcard__icon">'+g(ic,22)+'</span>':'')+'<span class="pcard__text"><span class="pcard__name">'+esc(railItemLabel(areaKey,seg,S.role))+'</span><span class="pcard__line">'+esc(BLURB[seg]||'')+'</span></span></a></li>';}).join('')+'</ul>';};
+  var html=groups.map(function(gr){return gr.label?'<div class="area-group"><h3 class="area-group__title">'+esc(gr.label)+'</h3>'+cards(gr.items)+'</div>':'<div class="area-group">'+cards(gr.items)+'</div>';}).join('');
+  if(overview&&areaKey==='communications'&&sec.items.indexOf('comms')>=0){
+    html+='<div class="area-group"><ul class="area-grid"><li><a class="pcard" href="'+href('comms')+'"><span class="pcard__icon">'+g('rotate-ccw-clock',22)+'</span><span class="pcard__text"><span class="pcard__name">History</span><span class="pcard__line">Everything sent</span></span></a></li></ul></div>';
+  }
+  return '<nav class="area-pages" aria-label="'+esc(title)+' pages">'+html+'</nav>';
+}
+
+/* ================= pages ================= */
+function vArea(key){
+  var sec=railFor(S.role).filter(function(s){return s.key===key;})[0];
+  return '<div class="container stack" data-area="'+key+'" style="padding:0">'+recon('area')+ph({icon:RAIL_ICON[key],title:RAILBY[key].label})+areaCards(key,null,true)+'</div>';
+}
+
+function vHome(){
+  var r=S.role,manage=can('configure'),mark=can('mark');
+  var vis={};visibleSegs(r).forEach(function(s){vis[s]=1;});
+  var focused=can('focused');
+  var teaches=r==='instructor';
+  var h='';
+  /* context row */
+  var chip=vis.cycles||vis.classes?'<a class="chip chip--link" href="'+href(vis.cycles?'cycles':'classes')+'" title="The program you are running now">'+g('calendar-range',14)+'<span>Fall 2026</span><span class="badge badge-success status-pill">'+g('circle-check',13)+'Active</span></a>':'';
+  var viewAs=vis.website?'<button type="button" class="btn btn-sm" data-act="sim" data-msg="Would open the public page in a new tab.">'+g('external-link',14)+'View as customer</button>':'';
+  if(chip||viewAs)h+='<div class="home__top"><div class="home__context">'+chip+'</div><div class="home__top-actions">'+viewAs+'</div></div>';
+  /* focus switch: offered to non-teachers who see both halves */
+  if(!teaches&&!focused&&vis.classes&&vis.events){
+    h+='<div class="home-focus" role="group" aria-label="Dashboard focus">'+[['classes','Classes','book-open'],['events','Events','ticket']].map(function(o){return '<button type="button" class="home-focus__btn" aria-pressed="'+(S.homeFocus===o[0])+'" data-act="focus" data-v="'+o[0]+'">'+g(o[2],22)+'<span>'+o[1]+'</span></button>';}).join('')+'</div>';
+  }
+  /* quick actions (domain/home-view.ts STUDIO_ACTIONS) */
+  var qa=[];
+  if(mark&&vis.attendance)qa.push(['attendance','Take attendance','clipboard-check',vis['my-teaching']&&focused?'my-teaching':'attendance',true]);
+  if(manage){
+    if(vis.students)qa.push(['add-student','Add a student','user-plus','students']);
+    if(vis.comms)qa.push(['message','Message people','send','comms']);
+    if(vis.classes)qa.push(['create-class','Create a class','book-open','classes']);
+    if(vis.cycles)qa.push(['create-program','Create a program','calendar-range','cycles']);
+    if(vis.events)qa.push(['create-event','Create an event','ticket','events']);
+  }
+  if(S.homeFocus==='events'&&!teaches){qa.sort(function(a,b){return (b[0]==='create-event')-(a[0]==='create-event');});}
+  if(qa.length)h+=flushSection('Quick actions','<div class="home__actions">'+qa.map(function(a){return '<a class="btn btn-sm'+(a[4]?' btn-primary':'')+'" href="'+href(a[3])+'">'+g(a[2])+'<span>'+a[1]+'</span></a>';}).join('')+'</div>');
+  /* tiles */
+  var tiles=[];
+  if(vis.classes)tiles.push(['Active classes','9','book-open','classes',manage?['Add a class','classes']:null]);
+  if(vis.students)tiles.push(['Active students','142','users','students',manage?['Add a student','students']:null]);
+  if(vis.attendance)tiles.push(['Sessions in the next 7 days','23','calendar-days','attendance',mark?['Open attendance','attendance']:null]);
+  if(vis.events)tiles.push(['Upcoming events','3','ticket','events',manage?['Add an event','events']:null]);
+  if(S.homeFocus==='events'&&tiles.length>3){tiles.unshift(tiles.pop());}
+  if(tiles.length)h+='<div class="metric-grid" aria-label="At a glance">'+tiles.map(function(t){return '<div class="metric-tile"><a class="metric-tile__main" href="'+href(t[3])+'"><span class="metric-tile__label">'+g(t[2],16)+esc(t[0])+'</span><span class="metric-tile__value">'+t[1]+'</span></a>'+(t[4]?'<a class="metric-tile__action" href="'+href(t[4][1])+'">'+esc(t[4][0])+' '+g('chevron-right',14)+'</a>':'')+'</div>';}).join('')+'</div>';
+  /* today */
+  var rows=[
+    {when:'4:30 pm',title:'Hip-Hop Teens',meta:'Canal Hall · Tobias Wren · 16 enrolled',state:'done',label:'Done',icon:'circle-check',tone:'badge-success',action:'View register',sid:'s4',mine:false},
+    {when:'6:00 pm',title:'Lyrical Level 2',meta:'Harbour Street · Studio A · Leo Hartmann · 12 enrolled',state:'ready',label:'Ready',icon:'clipboard-check',tone:'badge-info',action:'Take attendance',sid:'s6',mine:true},
+    {when:'7:00 pm',title:'Jazz Level 1',meta:'Harbour Street · Studio B · Ana Moreau · 14 enrolled',state:'scheduled',label:'Scheduled',icon:'clock',tone:'badge-neutral',action:'Take attendance',sid:'s2',mine:false}
+  ];
+  if(teaches)rows=rows.filter(function(x){return x.mine;});
+  if(S.homeFocus==='events'&&!teaches)rows.push({when:'Fri 9:00 pm',title:'Friday Social',meta:'Canal Hall · 46 of 120 tickets',state:'scheduled',label:'Scheduled',icon:'ticket',tone:'badge-neutral',action:'Open event',page:'events'});
+  var today=rows.length?'<ul class="home__list">'+rows.map(function(x){
+    var act=x.page?(vis.events?'<a class="btn btn-sm btn-primary" href="'+href('events')+'">'+x.action+'</a>':''):(mark?'<a class="btn btn-sm btn-primary" href="'+href('register-'+x.sid)+'">'+x.action+'</a>':'');
+    return '<li><div class="task-card'+(x.state==='done'?' is-muted':'')+'"><span class="task-card__icon">'+g(x.icon)+'</span><div class="task-card__body"><div class="task-card__title"><strong class="home__when">'+x.when+'</strong><span>'+esc(x.title)+'</span><span class="badge '+x.tone+'">'+g(x.icon,13)+x.label+'</span></div><div class="task-card__meta">'+esc(x.meta)+'</div></div>'+(act?'<div class="task-card__action">'+act+'</div>':'')+'</div></li>';}).join('')+'</ul>':'<p class="muted">Nothing is scheduled today.</p>';
+  var main=flushSection('Today',today);
+  /* aside */
+  var side='';
+  if(manage){
+    var att=[];
+    if(vis.notices)att.push(['warning','2 change notices not sent','Thanksgiving closure: Thu, Nov 26 classes are cancelled and their students have not been told.','Review change notices','notices']);
+    if(vis['checkin-alerts'])att.push(['accent','Check-in alerts','3 alerts have not been resolved on your roster.','Review alerts','checkin-alerts']);
+    if(vis.attendance)att.push(['info','Attendance still open','1 session in the last 14 days was never finalized. Reports treat only finalized sessions as definitive.','Open attendance','attendance']);
+    if(vis.classes)att.push(['info','Classes at capacity','1 class is full, so anyone joining now goes to the waitlist.','Open classes','classes']);
+    side+=flushSection('Needs attention','<ul class="home__list">'+att.map(function(a){return '<li><div class="task-card task-card--'+a[0]+'"><span class="task-card__icon">'+g('triangle-alert')+'</span><div class="task-card__body"><div class="task-card__title"><strong>'+esc(a[1])+'</strong></div><div class="task-card__meta">'+esc(a[2])+'</div></div><div class="task-card__action"><a class="btn btn-sm" href="'+href(a[4])+'">'+esc(a[3])+'</a></div></div></li>';}).join('')+'</ul>');
+  }else if(!focused){side+=flushSection('Needs attention','<p class="muted">Nothing needs attention.</p>');}
+  if(can('finance')){
+    side+=section('Money in','<div class="data-table__scroll"><table class="data-table"><thead><tr><th>Class</th><th>Provider-verified</th><th>Staff-recorded</th></tr></thead><tbody>'+[['Contemporary Foundations','$1,260.00','$90.00'],['Jazz Level 1','$980.00','$0.00'],['Ballet Basics (Adults)','$1,400.00','$140.00']].map(function(x){return '<tr><td data-primary>'+x[0]+'</td><td data-label="Provider-verified">'+x[1]+'</td><td data-label="Staff-recorded">'+x[2]+'</td></tr>';}).join('')+'</tbody></table></div><p class="muted text-sm" style="margin:0">Net of refunds of the same basis. The two columns are never added together.</p>',{desc:'Fall 2026 · Last 30 days',actions:vis.finance?'<a class="btn btn-sm btn-ghost" href="'+href('finance')+'">All money</a>':''});
+  }
+  if(vis.website){
+    side+=section('Customers see','<div class="row"><span class="badge badge-success">'+g('globe',13)+'Published</span><span class="muted text-sm">'+STUDIO.web+'/s/'+STUDIO.slug+'</span></div><div class="row"><button type="button" class="btn btn-sm" data-act="sim" data-msg="Would open the public page in a new tab.">'+g('external-link',14)+'Open the public page</button><a class="btn btn-sm btn-ghost" href="'+href('website')+'">Website settings</a></div>',{desc:'Your public page — the link you share.'});
+  }
+  h+='<div class="home__grid"><div class="stack">'+main+'</div>'+(side?'<aside class="stack" aria-label="What needs you">'+side+'</aside>':'')+'</div>';
+  return '<div class="stack home">'+recon('home')+'<h1 class="visually-hidden" id="page-title" tabindex="-1">Home</h1>'+h+'</div>';
+}
+
+function vPrograms(){
+  var manage=can('configure');
+  var ws=S.progWs;
+  var inWs=PROGRAMS.filter(function(p){return ws==='active'?(p.status==='active'||p.status==='open'):ws==='planning'?p.status==='draft':(p.status==='completed'||p.status==='archived');});
+  var h=ph({icon:'calendar-range',title:'Programs',desc:'A program is the block of weeks your classes run in.',actions:manage?'<button type="button" class="btn btn-primary" data-act="toggle" data-k="newProgram">'+g('plus')+'New program</button>':''});
+  h+='<div class="card" style="padding:.5rem .75rem"><nav aria-label="Program workspaces" class="row" style="gap:.4rem">'+[['active','Active'],['planning','Planning'],['history','History: finished programs']].map(function(w){return '<button type="button" class="btn btn-sm btn-toggle'+(w[0]==='history'?' btn-ghost':'')+'" data-act="progws" data-v="'+w[0]+'"'+(ws===w[0]?' aria-current="page"':'')+'>'+w[1]+'</button>';}).join('')+'</nav></div>';
+  if(S.newProgram&&manage){
+    h+='<form class="card stack" data-form="new-program"><h3 style="margin:0">New program</h3><p class="muted" style="margin:0">A new program starts as a Draft. Open sign-ups, activate it, then complete it when the last class date has passed.</p><div class="form-row">'+field('Program name',inp('np-name','','e.g. Spring 2027'),{id:'np-name',req:1})+field('Start date',inp('np-start','2027-04-05','', 'date'),{id:'np-start',req:1})+field('End date',inp('np-end','2027-06-13','','date'),{id:'np-end',req:1})+'</div><div class="form-actions"><button class="btn btn-primary" type="submit">Create program</button><button type="button" class="btn" data-act="toggle" data-k="newProgram">Cancel</button></div></form>';
+  }
+  h+='<div class="row"><label for="cfilter" class="visually-hidden">Filter by status</label>'+sel('cfilter',[['','All statuses']].concat(ws==='active'?[['open','Open'],['active','Active']]:ws==='planning'?[['draft','Draft']]:[['completed','Completed'],['archived','Archived']]),'').replace('<select','<select style="max-width:220px"')+'</div>';
+  if(ws==='active'&&manage){
+    h+=section('Next-term placement','<div class="field"><label class="field__label" for="pl-prog">Program</label>'+sel('pl-prog',['Fall 2026','Winter 2027'],'Fall 2026').replace('<select','<select style="max-width:280px"')+'</div><p class="muted text-sm" style="margin:0">Where this term’s placement questions point next term. Five separate counts, because asking, being answered, being settled, being invitable and being enrolled are five different things.</p><div class="metric-grid">'+[['Asked','31'],['Answered','24'],['Settled','19'],['Invitable','17'],['Enrolled','9']].map(function(x){return '<div class="metric-tile"><div class="metric-tile__main"><span class="metric-tile__label">'+x[0]+'</span><span class="metric-tile__value">'+x[1]+'</span></div></div>';}).join('')+'</div>');
+  }
+  if(!inWs.length){
+    h+=ws==='planning'?empty('calendar-range','Nothing being planned.','Draft programs appear here until you open sign-ups.'):empty('calendar-range','No finished programs yet.','');
+  }
+  h+=inWs.map(function(p){
+    var meter=p.status==='active'?'<div class="progress" aria-label="Program progress"><span>Week '+p.week+' of '+p.weeks+'</span><div class="progress__bar"><div class="progress__fill" style="width:'+Math.round(p.week/p.weeks*100)+'%"></div></div></div>':'';
+    var next=NEXT_VERB[p.status];
+    return '<article class="card stack" style="gap:.6rem"><div class="row" style="justify-content:space-between"><div><h2 style="margin:0;font-size:1.1rem">'+esc(p.name)+'</h2><span class="muted text-sm">'+p.start+' – '+p.end+' · '+p.classes+' classes</span></div><span class="badge status-pill '+STATUS_TONE[p.status]+'">'+STATUS_LABEL[p.status]+'</span></div>'+meter+(manage?'<div class="row">'+(next?simBtn(next,next+' — '+p.name+'.','btn-sm btn-primary'):'')+'<a class="btn btn-sm" href="'+href('classes')+'">Classes</a>'+actionMenu('More actions for '+p.name,['Add saved classes','Who teaches what','Duplicate / Roll over','Change dates','Archive','Cleanup…'])+'</div>':'')+'</article>';
+  }).join('');
+  return '<div class="stack" data-area="schedule">'+recon('cycles')+h+'</div>';
+}
+
+function vClasses(){
+  var manage=can('configure'),r=S.role;
+  var list=r==='instructor'?CLASSES.filter(function(c){return c.t==='lh';}):CLASSES;
+  var h=ph({icon:'book-open',title:'Classes',desc:'A class is the recurring course students join, inside one program, meeting on its own class dates.',actions:manage?dlgBtn(g('plus')+'New class','new-class','btn-primary'):''});
+  h+='<div class="row"><span class="muted">Program</span>'+sel('cls-prog',[['current','Current programs'],['fall26','Fall 2026'],['win27','Winter 2027'],['all','All programs']],'current').replace('<select','<select aria-label="Program filter" style="max-width:240px"')+'<label><input type="checkbox"> <span class="muted">Show archived</span></label></div>';
+  h+='<div class="data-table__scroll"><table class="data-table"><thead><tr><th>Class</th><th>When</th><th>Where</th><th>Teacher</th><th>Enrolled</th><th><span class="visually-hidden">Actions</span></th></tr></thead><tbody>'+list.map(function(c){
+    var full=c.en>=c.cap;
+    return '<tr><td data-primary><a href="'+href('class-'+c.id)+'">'+esc(c.name)+'</a> <span class="muted text-sm">Fall 2026</span></td><td data-label="When">'+c.day+' '+c.time+'</td><td data-label="Where">'+esc(c.room)+'</td><td data-label="Teacher">'+esc(teacherName(c))+'</td><td data-label="Enrolled">'+c.en+' / '+c.cap+(full?' <span class="badge badge-warning">Full</span>':'')+'</td><td data-actions><a class="btn btn-sm" href="'+href('class-'+c.id)+'">Open class</a></td></tr>';}).join('')+'</tbody></table></div>';
+  return '<div class="stack" data-area="schedule">'+recon('classes')+h+'</div>';
+}
+
+function vClass(id){
+  var c=CLS[id]||CLASSES[0];var manage=can('configure');
+  var roster=STUDENTS.slice(0,Math.min(c.en,12));
+  var h=ph({icon:'book-open',title:c.name,desc:'Fall 2026 · '+c.day+' '+c.time+' · '+c.room+' · '+teacherName(c),actions:(manage?dlgBtn(g('send',16)+'Message this class','message-class','',c.name)+simBtn('Edit class','Class editor not reproduced in this preview.'):'')+'<a class="btn" href="'+href('classes')+'">'+g('arrow-left',16)+'All Classes</a>'});
+  h+='<div class="tabs" role="tablist"><button class="tabs__tab" role="tab" aria-selected="true">Roster <span class="tabs__count">'+c.en+'</span></button><button class="tabs__tab" role="tab" aria-selected="false" data-act="sim" data-msg="Class dates tab not reproduced in this preview.">Class dates <span class="tabs__count">11</span></button><button class="tabs__tab" role="tab" aria-selected="false" data-act="sim" data-msg="Waitlist tab not reproduced in this preview.">Waitlist</button></div>';
+  h+='<ul class="roster">'+roster.map(function(s){return '<li><strong>'+esc(s.name)+'</strong><span class="muted text-sm">'+esc(s.email)+'</span></li>';}).join('')+'</ul>';
+  return '<div class="stack" data-area="schedule">'+recon('classes')+h+'</div>';
+}
+
+function vStudents(){
+  var manage=can('configure');
+  var q=(S.search||'').toLowerCase();
+  var list=STUDENTS.filter(function(s){return !q||s.name.toLowerCase().indexOf(q)>=0||s.email.indexOf(q)>=0||s.ext.toLowerCase().indexOf(q)>=0;});
+  var h=ph({icon:'users',title:'Students',actions:manage?'<button type="button" class="btn btn-primary" data-act="toggle" data-k="addStudent">Add student</button><a class="btn" href="'+href('imports')+'">Import roster</a>':''});
+  if(S.addStudent&&manage){
+    h+='<form class="card stack" data-form="add-student"><h3 style="margin:0;font-size:1rem">Add a student</h3><div class="form-row">'+field('First name',inp('stu-first'),{id:'stu-first'})+field('Last name',inp('stu-last'),{id:'stu-last'})+'</div><div class="form-row">'+field('Email (optional)',inp('stu-email','','','email'),{id:'stu-email'})+field('Phone (optional)',inp('stu-phone','','','tel'),{id:'stu-phone'})+'</div><div class="form-actions"><button class="btn btn-primary" type="submit">Add student</button><button type="button" class="btn" data-act="toggle" data-k="addStudent">Cancel</button></div></form>';
+  }
+  h+='<input type="search" id="stu-search" data-input="search" value="'+esc(S.search)+'" placeholder="Search by name, email, or ID…" aria-label="Search students">';
+  h+=list.length?'<div class="data-table__scroll" style="border-left:4px solid var(--area-people)"><table class="data-table"><thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>External ID</th></tr></thead><tbody>'+list.map(function(s){return '<tr><td data-primary><a href="#" data-act="sim" data-msg="Student detail not reproduced in this preview.">'+esc(s.name)+'</a></td><td data-label="Email">'+esc(s.email)+'</td><td data-label="Phone">'+s.phone+'</td><td data-label="External ID">'+s.ext+'</td></tr>';}).join('')+'</tbody></table></div>':empty('search','No students match “'+S.search+'”.','',simBtn('Clear search','')+'','no-results');
+  return '<div class="stack" data-area="people">'+recon('students')+h+'</div>';
+}
+
+function sessionCard(s){
+  var c=CLS[s.cls];var fin=s.state==='finalized'||S.finalized[s.id];
+  var badge=fin?'<span class="badge badge-neutral">Finalized</span>':s.state==='open'?'<span class="badge badge-present">Open</span>':'<span class="badge badge-neutral">Scheduled</span>';
+  var label=fin?'View register':(s.date==='Today'?'Take attendance':'View register');
+  return '<div class="card stack session" style="gap:.5rem"><div class="row" style="justify-content:space-between;align-items:flex-start"><div><strong>'+esc(c.name)+'</strong><div class="muted text-sm">'+s.date+' · '+s.when+' · '+esc(c.room)+' · Detailed</div></div><div class="row" style="gap:.5rem">'+badge+(can('mark')?'<a class="btn btn-primary" href="'+href('register-'+s.id)+'">'+label+'</a>':'<span class="muted text-sm">View only — this role does not take the register</span>')+'</div></div>'+(can('configure')?'<details class="disclosure"><summary>Door &amp; kiosk</summary><div class="row">'+simBtn('Copy staff link','Staff link copied (simulated).','btn-sm')+'<a class="btn btn-sm" href="'+href('kiosks')+'">Front-desk tablet</a></div></details>':'')+'</div>';
+}
+function vAttendance(){
+  var r=S.role;var mine=r==='instructor'?function(s){return CLS[s.cls].t==='lh';}:function(){return true;};
+  var today=SESSIONS.filter(function(s){return s.date==='Today'&&mine(s);});
+  var now=today.filter(function(s){return s.state==='open'&&!S.finalized[s.id];});
+  var later=today.filter(function(s){return s.state==='scheduled'&&!S.finalized[s.id];});
+  var fin=today.filter(function(s){return s.state==='finalized'||S.finalized[s.id];});
+  var next=SESSIONS.filter(function(s){return s.date!=='Today'&&mine(s);});
+  var block=function(t,l){return l.length?'<section class="stack" aria-label="'+t+'"><h3 style="margin:0">'+t+'</h3><div class="auto-grid">'+l.map(sessionCard).join('')+'</div></section>':'';};
+  var h=ph({icon:'clipboard-check',title:'Attendance / Check-In',actions:can('configure')?'<a class="btn" href="'+href('kiosks')+'">'+g('tablet',16)+'Front-desk tablet</a>':''});
+  h+='<section class="stack" aria-label="Today"><h3 style="margin:0">Today</h3></section>'+block('Happening now',now)+block('Later today',later)+block('Recently finalized',fin)+block('Next 7 days',next);
+  return '<div class="stack" data-area="today">'+recon('attendance')+h+'</div>';
+}
+
+function vRegister(id){
+  var s=SESS[id]||SESSIONS[1];var c=CLS[s.cls];var fin=s.state==='finalized'||S.finalized[s.id];
+  var roster=STUDENTS.slice(0,Math.min(c.en,12));
+  var m=S.att[s.id]||(S.att[s.id]={});
+  if(s.state==='finalized'&&!Object.keys(m).length)roster.forEach(function(p,i){m[p.name]=i%7===3?'absent':'present';});
+  var checked=roster.filter(function(p){return m[p.name]==='present'||m[p.name]==='late';}).length;
+  var marked=roster.filter(function(p){return m[p.name];}).length;
+  var back=can('focused')?'my-teaching':'attendance';
+  var h=ph({icon:'clipboard-check',title:c.name,desc:s.date+' · '+s.when+' · '+c.room+' · '+teacherName(c),actions:'<a class="btn" href="'+href(back)+'">'+g('arrow-left',16)+'All dates for this class</a>'});
+  h+='<div class="row">'+(fin?'<span class="badge badge-neutral">Finalized</span>'+(can('configure')?simBtn('Reopen for corrections','Reopened for corrections.','btn-sm'):''):(s.state==='open'?'<span class="badge badge-present">Open</span>':'<span class="badge badge-neutral">Scheduled</span>'+simBtn('Open now','Register opened.','btn-sm')))+'</div>';
+  h+='<div class="metric-grid"><div class="metric-tile"><div class="metric-tile__main"><span class="metric-tile__label">Checked in</span><span class="metric-tile__value">'+checked+' / '+roster.length+'</span></div></div><div class="metric-tile"><div class="metric-tile__main"><span class="metric-tile__label">Register marked</span><span class="metric-tile__value">'+marked+' / '+roster.length+'</span></div></div></div>';
+  if(!fin)h+='<div class="row"><button type="button" class="btn" data-act="allpresent" data-v="'+s.id+'">'+g('check',16)+'Mark all present</button></div>';
+  h+='<ul class="roster" aria-label="Roster">'+roster.map(function(p){var st=m[p.name]||'';
+    var ctl=fin?'<span class="badge '+(st==='present'?'badge-present':st==='late'?'badge-late':st==='excused'?'badge-excused':'badge-absent')+'">'+(st?st.charAt(0).toUpperCase()+st.slice(1):'Absent')+'</span>':'<div class="seg" role="group" aria-label="Attendance for '+esc(p.name)+'">'+['present','late','absent','excused'].map(function(v){return '<button type="button" data-act="mark" data-v="'+v+'" data-s="'+s.id+'" data-p="'+esc(p.name)+'" aria-pressed="'+(st===v)+'">'+v.charAt(0).toUpperCase()+v.slice(1)+'</button>';}).join('')+'</div>';
+    return '<li><strong>'+esc(p.name)+'</strong>'+ctl+(NOTES[p.name]?'<span class="roster__note">'+g('sticky-note',14)+' '+esc(NOTES[p.name])+' <span class="muted" style="font-weight:400">Informational — this does not affect check-in.</span></span>':'')+'</li>';}).join('')+'</ul>';
+  h+=section('Not on the roster?','<div class="row">'+dlgBtn('Add drop-in guest…','dropin','btn-sm')+simBtn('Request roster add…','Roster add requested (simulated).','btn-sm')+'</div>');
+  h+=section('Session notes (shared)','<textarea id="session-note" placeholder="e.g. worked on cross-body turns"></textarea><div>'+simBtn('Save note','Note saved (simulated).','btn-sm')+'</div>');
+  if(!fin)h+='<div class="form-actions">'+dlgBtn('Finalize attendance','finalize','btn-primary',s.id)+'</div>';
+  return '<div class="stack" data-area="'+(can('focused')?'today':'schedule')+'">'+recon('register')+h+'</div>';
+}
+
+function vMyTeaching(){
+  var mine=SESSIONS.filter(function(s){return CLS[s.cls].t==='lh';});
+  var row=function(s){var c=CLS[s.cls];return '<li><div class="task-card"><span class="task-card__icon">'+g('graduation-cap')+'</span><div class="task-card__body"><div class="task-card__title"><strong class="home__when">'+s.when+'</strong><span>'+esc(c.name)+'</span></div><div class="task-card__meta">'+s.date+' · '+esc(c.room)+' · '+c.en+' enrolled</div></div><div class="task-card__action"><a class="btn btn-sm btn-primary" href="'+href('register-'+s.id)+'">'+(s.date==='Today'?'Take attendance':'View register')+'</a></div></div></li>';};
+  var today=mine.filter(function(s){return s.date==='Today';}),later=mine.filter(function(s){return s.date!=='Today';});
+  var h=ph({icon:'graduation-cap',title:'My teaching'});
+  h+=section('Today',today.length?'<ul class="home__list">'+today.map(row).join('')+'</ul>':empty('graduation-cap','Nothing to teach today',''),{desc:'Tuesday, November 17'});
+  h+=section('Coming up','<ul class="home__list">'+later.map(row).join('')+'</ul>');
+  return '<div class="stack" data-area="today">'+recon('my-teaching')+h+'</div>';
+}
+
+function vEvents(){
+  var manage=can('configure');var list=S.evTab==='upcoming'?EVENTS:PAST_EVENTS;
+  var h=ph({icon:'ticket',title:'Events & socials',desc:'Socials, workshops and one-off events, alongside your weekly classes.',actions:manage?'<button type="button" class="btn btn-primary" data-act="toggle" data-k="newEvent">'+g('plus')+'Add an event</button>':''});
+  if(S.newEvent&&manage){
+    h+='<form class="card stack" data-form="new-event"><div><h2 class="section__title">New event</h2><p class="section__description">A title and a first date are enough to start; everything else can wait.</p></div><div class="form-row">'+field('Title',inp('ev-title','','e.g. Friday Social'),{id:'ev-title',req:1})+field('Type',sel('ev-type',['Social','Workshop','Performance','Open house','Other'],'Social'),{id:'ev-type',req:1})+'</div>'+field('Description','<textarea id="ev-desc"></textarea>',{id:'ev-desc',hint:'What guests read on the event page. You can add more — an image, what to bring — after creating it.'})+'<div class="form-row">'+field('First date',inp('ev-date','2026-12-18','','date'),{id:'ev-date',req:1})+field('Start time',inp('ev-time','21:00','','time'),{id:'ev-time',req:1})+field('Minutes',inp('ev-min','180','','number'),{id:'ev-min',req:1})+'</div><details class="disclosure"><summary>'+g('chevron-right',16)+'More details <span class="muted text-sm" style="font-weight:400">Repeats, venue, capacity, registration window, price note, ticket link, publish</span></summary><div class="stack" style="margin-top:.5rem"><div class="form-row">'+field('How many dates?',inp('ev-n','1','','number'),{id:'ev-n',hint:'Weekly, starting from the first date.'})+field('Venue',sel('ev-venue',['Canal Hall','Harbour Street'],'Canal Hall'),{id:'ev-venue'})+field('Capacity',inp('ev-cap','','none','number'),{id:'ev-cap'})+'</div>'+field('Price note (not charged)',inp('ev-price','','$15 at the door'),{id:'ev-price',hint:'Words only, like “$10 at the door”. Selling tickets online? Create the event, then add ticket types with prices on its page.'})+'</div></details><div class="form-actions"><button class="btn btn-primary" type="submit">Create event</button><button type="button" class="btn" data-act="toggle" data-k="newEvent">Cancel</button></div></form>';
+  }
+  h+='<div class="tabs" role="tablist" aria-label="Events by time"><button class="tabs__tab" role="tab" data-act="evtab" data-v="upcoming" aria-selected="'+(S.evTab==='upcoming')+'">Upcoming <span class="tabs__count">'+EVENTS.length+'</span></button><button class="tabs__tab" role="tab" data-act="evtab" data-v="past" aria-selected="'+(S.evTab==='past')+'">Past <span class="tabs__count">'+PAST_EVENTS.length+'</span></button></div>';
+  h+='<div class="auto-grid">'+list.map(function(e){return '<article class="card stack" style="gap:.5rem;border-left:4px solid var(--area-schedule)"><div class="row" style="justify-content:space-between"><strong>'+esc(e.name)+'</strong><span class="badge '+(e.state==='Published'?'badge-success':'badge-neutral')+'">'+e.state+'</span></div><span class="muted text-sm">'+e.type+' · '+e.date+' · '+e.time+' · '+esc(e.venue)+'</span><span class="text-sm">'+e.sold+' of '+e.cap+' registered</span>'+(manage?'<div class="row">'+simBtn('Open event','Event page not reproduced in this preview.','btn-sm')+simBtn('Check in','Event check-in not reproduced in this preview.','btn-sm')+'</div>':'')+'</article>';}).join('')+'</div>';
+  return '<div class="stack" data-area="schedule">'+recon('events')+h+'</div>';
+}
+
+function vComms(){
+  var h=ph({icon:'message-square',title:'Messages',desc:'What Scene Lead writes to your students, when it goes out, and who has asked not to hear from you. To write one message yourself and send it to a group, go to Contacts & consent.'});
+  h+=areaCards('communications','comms');
+  h+=section('When messages go out','<fieldset style="border:0;padding:0;margin:0"><legend style="font-weight:600;font-size:.9rem">Class reminders</legend><div class="row">'+['Off','2 hours before','24 hours before','Custom:'].map(function(o,i){return '<label><input type="radio" name="rem"'+(i===2?' checked':'')+'> '+o+'</label>';}).join('')+'</div></fieldset><fieldset style="border:0;padding:0;margin:0"><legend style="font-weight:600;font-size:.9rem">First-class reminder</legend><p class="muted text-sm" style="margin:0">One reminder for each class a student is enrolled in, sent the day before that class’s first date.</p><label><input type="checkbox" checked> Send a first-class reminder</label></fieldset><fieldset style="border:0;padding:0;margin:0"><legend style="font-weight:600;font-size:.9rem">When a new student never turns up</legend><label><input type="checkbox" checked> Send this message</label></fieldset><div class="form-actions">'+simBtn('Save when messages go out','Saved (simulated).','btn-primary')+'</div>',{desc:'Reminders before a class, and the one message a student gets if they miss their first sessions.'});
+  h+=section('What each message says','<div class="field"><label class="field__label" for="tpl-kind">Message type</label>'+sel('tpl-kind',['Class reminder','First-class reminder','Missed first sessions','Registration received','Waitlist seat offered'],'Class reminder')+'</div><div class="field"><label class="field__label" for="tpl-subject">Subject (email only)</label>'+inp('tpl-subject','Reminder: {{className}} {{sessionDate}}')+'</div><div class="field"><label class="field__label" for="tpl-body">Body</label><textarea id="tpl-body">Hi {{firstName}}, a reminder that {{className}} meets {{sessionDate}} at {{startTime}}. See you there!</textarea></div><div class="card" style="background:var(--surface-2)"><strong style="font-size:.85rem">Preview, using made-up details</strong><p style="margin:.4rem 0 0">Hi Alex, a reminder that Jazz Level 1 meets Tue, Nov 24 at 7:00 pm. See you there!</p></div><div class="form-actions">'+simBtn('Save these words','Saved (simulated).','btn-primary')+simBtn('Put the original words back','Original words restored (simulated).','')+'</div>',{desc:'Scene Lead writes these for you and sends them when something happens. Pick one, change the words, check the preview, and save.'});
+  h+=section('What was sent (4)','<div class="data-table__scroll"><table class="data-table"><thead><tr><th>Queued</th><th>Type</th><th>Channel</th><th>To</th><th>Status</th><th>Attempts</th></tr></thead><tbody>'+[['Nov 17, 9:00 am','Class reminder','Email','Aria Bello','Sent','1'],['Nov 17, 9:00 am','Class reminder','Email','Ben Castellano','Sent','1'],['Nov 16, 6:00 pm','First-class reminder','Text','Quinn Avery','Sent','1'],['Nov 16, 2:12 pm','Registration received','Email','Rosa Delgado','Sent','1']].map(function(x){return '<tr><td data-primary>'+x[3]+'</td><td data-label="Queued">'+x[0]+'</td><td data-label="Type">'+x[1]+'</td><td data-label="Channel">'+x[2]+'</td><td data-label="Status"><span class="badge badge-success">'+x[4]+'</span></td><td data-label="Attempts">'+x[5]+'</td></tr>';}).join('')+'</tbody></table></div>',{desc:'Every message Scene Lead has prepared, and what actually happened to it.',id:'history'});
+  h+=section('Do-not-contact list','<p class="muted text-sm" style="margin:0">2 addresses</p><form class="form-row" data-form="dnc">'+field('Email address or phone number',inp('sup-to','','person@example.test'),{id:'sup-to',req:1})+'<div style="align-self:flex-end;flex:0 0 auto"><button class="btn" type="submit">Add to the list</button></div></form>',{desc:'These addresses never receive a message from Scene Lead, whatever else the studio queues.'});
+  return '<div class="stack" data-area="communications">'+recon('comms')+h+'</div>';
+}
+
+function vTemplates(){
+  var h=ph({icon:'copy',title:'Templates'});
+  h+=areaCards('communications','templates');
+  h+='<p class="muted" style="margin:0">The wording your studio has saved, in one place. Each kind is written where it is used.</p>';
+  h+=section('Notice templates','<ul style="margin:0;padding-left:1.2rem"><li>Snow day — class cancelled</li><li>Venue change</li><li>Substitute teacher</li></ul>');
+  h+=section('Broadcasts','<ul style="margin:0;padding-left:1.2rem"><li>Term sign-ups are open <span class="muted">Email</span></li><li>Showcase tickets <span class="muted">Email and text</span></li></ul><p><a href="'+href('broadcasts')+'">Use one in a broadcast</a></p><p class="muted" style="margin:0">Saved and changed from the broadcast composer.</p>');
+  h+=section('Class messages',empty('copy','No class-message templates yet.','Save one when you message a class.',null,'quiet')+'<p class="muted" style="margin:0">Saved and deleted from a class’s message window.</p>');
+  return '<div class="stack" data-area="communications">'+recon('templates')+h+'</div>';
+}
+
+function vBroadcasts(){
+  var h=ph({icon:'contact',title:'Contacts & consent',desc:'Who may be contacted, what they agreed to, and one message to a group.'});
+  h+=areaCards('communications','broadcasts');
+  h+=section('Broadcast','<p class="muted" style="margin:0">One message, sent once, to a group you choose. Only people who agreed to hear from you receive it.</p><div class="row">'+dlgBtn(g('send',16)+'Write a broadcast','broadcast','btn-primary')+'</div>',{desc:'Broadcasts opens this card.'});
+  h+=section('Contacts','<div class="data-table__scroll"><table class="data-table"><thead><tr><th>Name</th><th>Email</th><th>Marketing</th></tr></thead><tbody>'+STUDENTS.slice(0,6).map(function(s,i){return '<tr><td data-primary>'+esc(s.name)+'</td><td data-label="Email">'+esc(s.email)+'</td><td data-label="Marketing">'+(i%4===2?'<span class="badge badge-neutral">No</span>':'<span class="badge badge-success">Yes</span>')+'</td></tr>';}).join('')+'</tbody></table></div>');
+  return '<div class="stack" data-area="communications">'+recon('broadcasts')+h+'</div>';
+}
+
+function vTeam(){
+  var members=can('members');
+  var h=ph({icon:'users',title:'Team',desc:'Who works here, what each person may do, and who to contact first.',actions:members?dlgBtn(g('user-plus',16)+'Invite a staff member','invite','btn-primary'):''});
+  h+=areaCards('settings','team');
+  h+=section('Ownership & contact','<p style="margin:0"><strong>Owners:</strong> Maya Lindqvist</p><div class="field" style="max-width:24rem"><label class="field__label" for="pc">Primary operational contact</label>'+sel('pc',['— nobody nominated —','Priya Natarajan','Jonah Reyes'],'Priya Natarajan')+'<p class="field__hint">Who to contact first about day-to-day operations. Changing this grants no permissions.</p></div>',{desc:'Application roles only. Scene Lead does not record or determine who legally owns the business.'});
+  h+=section('Members ('+TEAM.length+')','<div class="data-table__scroll"><table class="data-table"><thead><tr><th>Member</th><th>Roles</th><th>Teaches</th><th><span class="visually-hidden">Actions</span></th></tr></thead><tbody>'+TEAM.map(function(m){return '<tr><td data-primary>'+esc(m.name)+'<div class="muted text-sm" style="font-weight:400">'+esc(m.email)+'</div></td><td data-label="Roles">'+m.roles.map(function(r){return '<span class="badge badge-info">'+r+'</span>';}).join(' ')+'</td><td data-label="Teaches">'+esc(m.teaches||'—')+'</td><td data-actions>'+(members&&m.roles[0]!=='Owner'?actionMenu('More actions for '+m.name,['Change roles','Engagement type','Deactivate']):'')+'</td></tr>';}).join('')+'</tbody></table></div>');
+  h+=section('Pending invitations (1)','<div class="task-card"><span class="task-card__icon">'+g('mail')+'</span><div class="task-card__body"><div class="task-card__title">new.teacher@example.test <span class="badge badge-info">Instructor</span></div><div class="task-card__meta">Expires in 6 days</div></div>'+(members?'<div class="task-card__action">'+simBtn('Copy new link','A new invitation link was copied (simulated).','btn-sm')+'</div>':'')+'</div>');
+  if(!members)h+=empty('lock','View-only','Only owners and admins can invite staff or change roles.',null,'restricted');
+  return '<div class="stack" data-area="settings">'+recon('team')+h+'</div>';
+}
+
+function vSettings(){
+  var h=ph({icon:'settings',title:'Studio settings',desc:'How this studio runs and how it looks to the public — one topic per card, one Save for the page.'});
+  h+=areaCards('settings','settings');
+  h+=section('Attendance',field('How do you take attendance?',sel('st-mode',[['detailed','Detailed attendance (present, late, absent, excused)'],['presence_only','Quick attendance (check in / not yet)']],'detailed'),{id:'st-mode',hint:'There is also a separate front-desk tablet students check themselves in on.'})+field('Attendance opens',sel('st-open',[['','Manual only'],['0','At session start'],['5','5 minutes before'],['10','10 minutes before'],['15','15 minutes before'],['30','30 minutes before'],['60','60 minutes before']],'15'),{id:'st-open',hint:'Opening attendance lets staff check in students. Closing stays manual — nothing finalizes on its own.'})+field('Check-in method (default)',sel('st-ci',[['both','Staff and student kiosk'],['staff','Staff only (kiosk off)'],['kiosk','Student kiosk only']],'both'),{id:'st-ci',hint:'Who may check people in. Classes can override this on their own page — changing this default never touches those overrides.'}));
+  h+=section('Studio details',field('What do you use Scene Lead for?',sel('st-pm',[['attendance','Attendance only'],['enrollment','Enrollment & attendance'],['full','Everything — registration, payments & studio operations'],['event_organizer','Events & socials']],'full'),{id:'st-pm',hint:'You can change this anytime — nothing is migrated or lost.'})+'<div class="form-row">'+field('Studio name',inp('st-name',STUDIO.name),{id:'st-name',req:1})+field('Timezone (IANA)',inp('st-tz','America/Chicago'),{id:'st-tz',req:1,hint:'Used for session times and report display. Example: America/New_York'})+'</div><div class="form-row">'+field('Default session duration (minutes)',inp('st-dur','75','','number'),{id:'st-dur',req:1})+field('Internal contact email',inp('st-mail','frontdesk@northlight.example','','email'),{id:'st-mail'})+'</div>'+field('Home leads with',sel('st-focus',[['classes','Classes'],['events','Events']],'classes'),{id:'st-focus',hint:'For members who have not chosen their own. It only changes the order of Home.'}));
+  h+=section('Waitlists','<div class="form-row">'+field('Waitlist seat release',sel('st-wl',[['manual','Manual — you choose who is offered each seat'],['auto','Automatic — the next person in line is offered it']],'auto'),{id:'st-wl',req:1})+field('Offer expires after (hours)',inp('st-wlexp','24','','number'),{id:'st-wlexp',req:1})+'</div>',{id:'waitlists'});
+  h+=section('Public registration page','<label><input type="checkbox" checked> Allow online drop-in sign-ups</label>',{id:'public-registration'});
+  h+='<div class="form-actions">'+simBtn('Save settings','Settings saved (simulated).','btn-primary')+'</div>';
+  return '<div class="stack" data-area="settings">'+recon('settings')+h+'</div>';
+}
+
+function vWebsiteHub(){
+  var h=ph({icon:'globe',title:'Website & Sharing',desc:PAGE_DESC.website});
+  h+=section('Publication','<div class="row"><span class="badge badge-success">ENABLED — publicly reachable</span><span class="muted text-sm">'+STUDIO.web+'/s/'+STUDIO.slug+'</span></div><p class="muted text-sm" style="margin:0">Your public schedule and registration pages. Turning the site on or off is an owner decision.</p>'+(can('ownerAdmin')?'<div>'+simBtn('Turn the site off…','Site reachability change (simulated).','btn-sm')+'</div>':''));
+  h+=section('Managed website','<p class="muted" style="margin:0">Build your public site from sections and pages; check it before you publish.</p><div><a class="btn btn-primary" href="'+href('site')+'">'+g('pencil',16)+'Open the website editor</a></div>');
+  h+=section('Branding','<p class="muted" style="margin:0">Colours, fonts and logo used on every page your students see.</p><div>'+simBtn('Open the brand kit','Brand kit not reproduced in this preview.','btn-sm')+'</div>');
+  return '<div class="stack" data-area="website">'+recon('website')+h+'</div>';
+}
+
+var TPLS=[
+  {id:'image-forward',name:'Image-forward studio',desc:'Large photography, classes and events as cards, and the current session in front of everything.',suited:'Dance and movement studios with photographs of their classes.',hero:'',head:'Learn to dance with us',sub:'Small classes, real progress, no partner needed.',sw:'linear-gradient(135deg,#2c2a6b,#7c3aed)',secs:['hero','announcements','about','featured','schedule','events','gallery','instructors','pricing','faq','location','cta','contact']},
+  {id:'warm-community',name:'Warm community',desc:'A welcoming, people-first page: who you are, who teaches, and how to join in.',suited:'Smaller studios and community programmes.',hero:'warm',head:'Everyone is welcome here',sub:'Come as you are — we will show you the rest.',sw:'linear-gradient(135deg,#7a3a1c,#d9822b)',secs:['hero','about','announcements','instructors','featured','gallery','schedule','events','faq','location','contact','cta']},
+  {id:'clean-modern',name:'Clean modern',desc:'Restrained and professional. Reads well with little or no photography.',suited:'Studios without much photography.',hero:'clean',head:'Dance classes for every level',sub:'Find a class, see the schedule, sign up online.',sw:'linear-gradient(135deg,#e9ebef,#c3c8d2)',secs:['hero','featured','schedule','about','instructors','events','pricing','faq','location','contact']}
+];
+var SEC_LABEL={hero:'Main welcome section',announcements:'Announcements',about:'About the studio',featured:'Featured classes',instructors:'Instructors',gallery:'Photo gallery',pricing:'Prices and passes',signup:'Sign-up form',cta:'Action buttons',contact:'Contact details',events:'Upcoming events',schedule:'Weekly schedule',faq:'Common questions',location:'Location'};
+var SITE_PAGES=['Home','Classes','Schedule','Events','Memberships & passes','Instructors','About','Location','FAQ','Policies','Contact','Registration'];
+function tpl(){for(var i=0;i<TPLS.length;i++)if(TPLS[i].id===S.edTemplate)return TPLS[i];return TPLS[0];}
+function previewSection(k,t){
+  var body={hero:'<div class="site-hero '+t.hero+'"><h3>'+esc(t.head)+'</h3><p style="margin:0;opacity:.9">'+esc(t.sub)+'</p><p style="margin:.8rem 0 0"><span style="display:inline-block;padding:.45rem .9rem;border-radius:999px;background:#fff;color:#1d1a17;font-weight:700;font-size:.85rem">See the schedule</span></p></div>',
+    announcements:'<h4>Announcements</h4><p style="margin:0;font-size:.9rem">Winter 2027 sign-ups are open. Studios are closed Thu, Nov 26.</p>',
+    about:'<h4>About the studio</h4><p style="margin:0;font-size:.9rem">'+esc(STUDIO.name)+' teaches contemporary, jazz, ballet, tap and hip-hop in two rooms on Harbour Street and at Canal Hall.</p>',
+    featured:'<h4>Featured classes</h4><div class="site-cards">'+CLASSES.slice(0,4).map(function(c){return '<div><strong>'+esc(c.name)+'</strong><br>'+c.day+' '+c.time+'</div>';}).join('')+'</div>',
+    schedule:'<h4>Weekly schedule</h4><div class="site-cards">'+['Mon','Tue','Wed','Thu'].map(function(d){return '<div><strong>'+d+'</strong><br>'+CLASSES.filter(function(c){return c.day===d;}).map(function(c){return esc(c.name);}).join('<br>')+'</div>';}).join('')+'</div>',
+    events:'<h4>Upcoming events</h4><div class="site-cards">'+EVENTS.slice(0,3).map(function(e){return '<div><strong>'+esc(e.name)+'</strong><br>'+e.date+'</div>';}).join('')+'</div>',
+    gallery:'<h4>Photo gallery</h4><div class="site-cards"><div style="height:60px;background:#ddd"></div><div style="height:60px;background:#ccc"></div><div style="height:60px;background:#e4e4e4"></div></div>',
+    instructors:'<h4>Instructors</h4><p style="margin:0;font-size:.9rem">Leo Hartmann · Ana Moreau · Tobias Wren · Keiko Arai</p>',
+    pricing:'<h4>Prices and passes</h4><p style="margin:0;font-size:.9rem">Term (11 weeks) $198 · 5-class pass $85 · Drop-in $20</p>',
+    faq:'<h4>Common questions</h4><p style="margin:0;font-size:.9rem">Do I need a partner? No. What should I wear? Something you can move in.</p>',
+    location:'<h4>Location</h4><p style="margin:0;font-size:.9rem">Harbour Street Studios, Rooms A and B · Canal Hall</p>',
+    cta:'<h4>Action buttons</h4><p style="margin:0"><span style="display:inline-block;padding:.4rem .8rem;border-radius:6px;background:#3450f0;color:#fff;font-size:.85rem">Sign up for Winter</span></p>',
+    contact:'<h4>Contact details</h4><p style="margin:0;font-size:.9rem">hello@'+STUDIO.web+'</p>'}[k]||'';
+  if(k==='hero')return '<div class="site-sec" style="padding:0" data-sel="'+(S.edSection===k)+'">'+body+'</div>';
+  return '<div class="site-sec" data-sel="'+(S.edSection===k)+'">'+body+'</div>';
+}
+function vSite(){
+  var t=tpl();var w={desktop:'100%',tablet:'768px',mobile:'360px'}[S.edWidth];
+  var h=ph({icon:'globe',title:'Your website',desc:'Choose a page or a section, change it, and check the preview before you publish.',actions:'<a class="btn" href="'+href('website')+'">← Website &amp; Sharing</a>'});
+  h+='<div class="publish-bar" aria-label="Save and publish"><div class="publish-bar__card"><h3>'+g('pencil',16)+'Your draft</h3><span class="save-flag">'+(S.draftSaved?'Saved — not published yet':'Unsaved changes')+'</span><div class="row" style="gap:.5rem"><button type="button" class="btn" data-act="savedraft">Save draft</button>'+dlgBtn('Publish…','publish','btn-primary')+'</div><p class="muted text-sm" style="margin:0">Publishing saves anything unsaved and makes this version the published one'+(can('ownerAdmin')?'.':', but visitors still see nothing until the site is enabled.')+'</p></div><div class="publish-bar__card"><h3>'+g('eye',16)+'Look before you publish</h3><div class="row" style="gap:.5rem">'+simBtn('Open the saved draft in a tab','Would open the saved draft in a new tab.','btn-sm')+simBtn('Open the saved draft at phone size','Would open the saved draft at phone size.','btn-sm')+'</div></div><div class="publish-bar__card"><h3>'+g('globe',16)+'What visitors get</h3><span class="badge badge-present" style="align-self:flex-start">ENABLED — publicly reachable</span><p class="muted text-sm" style="margin:0">Visitors see the last published version.</p></div></div>';
+  h+='<div class="card" style="border-left:4px solid var(--area-website)"><strong>Start from a look, and change anything you like afterwards.</strong><p class="muted text-sm" style="margin:.3rem 0 .6rem">A look fills your home page with the sections a studio website usually has. Current look: <strong>'+esc(t.name)+'</strong>.</p>'+dlgBtn('Choose a look…','look','btn-sm')+'</div>';
+  var pages='<section class="ed-pane"><h2>'+g('files',16)+'Pages</h2><ul class="ed-list">'+SITE_PAGES.map(function(p){return '<li><button type="button" data-act="edpage" data-v="'+esc(p)+'" aria-current="'+(S.edPage===p)+'">'+esc(p)+'</button></li>';}).join('')+'</ul></section>';
+  var secs='<section class="ed-pane"><h2>'+g('layout-template',16)+'Sections</h2><ul class="ed-list">'+t.secs.map(function(k){return '<li><button type="button" data-act="edsec" data-v="'+k+'" aria-current="'+(S.edSection===k)+'">'+g('grip-vertical',14)+esc(SEC_LABEL[k])+'</button></li>';}).join('')+'</ul>'+simBtn(g('plus',16)+'Add a section','Section picker not reproduced in this preview.','btn-sm')+'</section>';
+  var prev='<section class="ed-pane"><div class="row" style="justify-content:space-between"><h2>'+g('eye',16)+'Live preview</h2><div class="seg" role="group" aria-label="Preview width">'+[['desktop','Desktop'],['tablet','Tablet'],['mobile','Phone']].map(function(x){return '<button type="button" data-act="edwidth" data-v="'+x[0]+'" aria-pressed="'+(S.edWidth===x[0])+'">'+x[1]+'</button>';}).join('')+'</div></div><div class="preview-frame" style="max-width:'+w+'"><div class="site-nav"><strong>'+esc(STUDIO.name)+'</strong>'+SITE_PAGES.slice(1,6).map(function(p){return '<span>'+esc(p)+'</span>';}).join('')+'</div>'+(S.edPage==='Home'?t.secs.map(function(k){return previewSection(k,t);}).join(''):'<div class="site-sec"><h4>'+esc(S.edPage)+'</h4><p style="margin:0;font-size:.9rem">This page fills itself in from the records you already keep.</p></div>')+'</div></section>';
+  var insp='<section class="ed-pane"><h2>'+g('sliders-horizontal',16)+'Settings</h2><p class="muted text-sm" style="margin:0"><strong>'+esc(SEC_LABEL[S.edSection]||S.edSection)+'</strong></p>'+(S.edSection==='hero'?field('Headline',inp('ed-head',t.head),{id:'ed-head'})+field('Subline',inp('ed-sub',t.sub),{id:'ed-sub'}):'<p class="muted text-sm" style="margin:0">This section fills itself in from the records you already keep — there is nothing to type here.</p>')+field('Look',sel('ed-look',['Standard','Cards','List','Image left','Image right'],'Standard'),{id:'ed-look'})+simBtn('Take this section off the page','Section removed from the draft (simulated).','btn-sm btn-danger')+'</section>';
+  h+='<div class="ed-panes"><div class="stack" style="gap:1rem">'+pages+secs+'</div>'+prev+insp+'</div>';
+  return '<div class="stack" data-area="website">'+recon('site')+h+'</div>';
+}
+
+function vPlaceholder(seg){
+  var area=areaOfSeg(seg);
+  var title=PAGE_TITLE[seg]||NAVBY[seg].label;
+  var h=ph({icon:NAV_ICON[seg],title:title,desc:PAGE_DESC[seg]||BLURB[seg]});
+  if(HAS_AREA_PAGES[seg])h+=areaCards(area,seg);
+  h+=empty('layout-grid','This page is in Release 2; its body is not reproduced in this preview.','The heading, the menu entry and the area cards above follow the candidate. Everything below the heading is awaiting reconciliation with the implementation.',null,'restricted');
+  return '<div class="stack" data-area="'+area+'">'+recon('placeholder')+h+'</div>';
+}
+
+/* ================= routing ================= */
+var ROLE_KEYS=ROLES.map(function(r){return r.key;});
+function pageSeg(page){
+  if(page==='home')return '';
+  if(page==='site')return 'website';
+  if(page.indexOf('class-')===0)return 'classes';
+  if(page.indexOf('register-')===0)return 'attendance';
+  if(page.indexOf('area-')===0)return null;
+  return page;
+}
+function pageVisible(role,page){
+  var vis=visibleSegs(role);
+  if(page.indexOf('area-')===0){var k=page.slice(5);return railFor(role).some(function(s){return s.key===k&&s.group;});}
+  if(page.indexOf('register-')===0)return can('mark',role)&&(vis.indexOf('attendance')>=0||vis.indexOf('my-teaching')>=0);
+  var seg=pageSeg(page);
+  return seg!==null&&NAVBY[seg]!==undefined&&vis.indexOf(seg)>=0;
+}
+function readHash(){var h=(location.hash||'').slice(1);return /^[a-z0-9-]+$/.test(h)?h:'';}
+function applyRoute(h){
+  if(h==='index'){S.page='index';return;}
+  var m=h.match(/^(owner|admin|opslead|instructor|assistant|readonly)-(.+)$/);
+  if(!m){S.role='owner';S.page='home';return;}
+  S.role=m[1];S.page=m[2];
+  if(!pageVisible(S.role,S.page)){S.blocked=S.page;S.page='home';}else S.blocked=null;
+  if(S.page.indexOf('area-')===0){var k=S.page.slice(5);if(k==='today'){S.page='home';}}
+}
+function go(h){if(readHash()===h){applyRoute(h);render();afterNav();}else location.hash=h;}
+
+/* ================= product shell ================= */
+function currentSeg(){return S.page==='index'?null:pageSeg(S.page);}
+function activeKey(){
+  if(S.page.indexOf('area-')===0)return S.page.slice(5);
+  if(S.page.indexOf('register-')===0)return can('focused')?'today':'schedule';
+  var seg=currentSeg();if(seg===null)return null;return areaOfSeg(seg);
+}
+function hereLabel(rail){
+  var key=activeKey();if(!key)return 'Menu';
+  var drawn=rail.filter(function(s){return s.key===key;})[0];
+  var seg=currentSeg();
+  if(S.page.indexOf('area-')===0||S.page.indexOf('register-')===0||S.page.indexOf('class-')===0)return RAILBY[key].label;
+  if(S.page==='site')return 'Website';
+  if(drawn&&!drawn.group)return railItemLabel(key,seg,S.role);
+  var label=railItemLabel(key,seg,S.role),secl=RAILBY[key].label;
+  return secl!==label?secl+' · '+label:label;
+}
+function railHtml(){
+  var rail=railFor(S.role),key=activeKey(),seg=currentSeg();
+  var short=rail.length<=3;
+  var sec=function(s){
+    var isCur=s.key===key;var ic=RAIL_ICON[s.key]?g(RAIL_ICON[s.key]):'';
+    if(!s.group){var only=s.items[0];var here=seg===only&&S.page.indexOf('area-')<0;
+      return '<li class="rail__section" data-area="'+s.key+'" data-current="'+isCur+'"><div class="rail__row"><a class="rail__link" href="'+href(segPage(only))+'"'+(here?' aria-current="page"':'')+'>'+ic+'<span>'+esc(railItemLabel(s.key,only,S.role))+'</span></a></div></li>';}
+    var ov=RAILBY[s.key].overview;
+    var doorHref=ov!==undefined?href(segPage(ov)):href('area-'+s.key);
+    var startsOpen=isCur||short;var open=startsOpen!==!!S.flips[s.key];
+    var doorHere=ov!==undefined?(seg===ov&&S.page!=='index'):(S.page==='area-'+s.key);
+    var subId='rail-sub-'+s.key;
+    var groups=s.groups.map(function(gr){return {label:gr.label,items:gr.items.filter(function(x){return x!==ov;})};}).filter(function(gr){return gr.items.length;});
+    var link=function(x){var ic2=NAV_ICON[x];return '<li><a class="rail__sublink" href="'+href(segPage(x))+'"'+(seg===x&&S.page.indexOf('area-')<0?' aria-current="page"':'')+'>'+(ic2?g(ic2,14):'')+'<span>'+esc(railItemLabel(s.key,x,S.role))+'</span></a></li>';};
+    var sub=groups.map(function(gr){if(!gr.label)return gr.items.map(link).join('');return '<li class="rail__subgroup"><span class="rail__subhead">'+esc(gr.label)+'</span><ul class="rail__sub rail__sub--nested">'+gr.items.map(link).join('')+'</ul></li>';}).join('');
+    return '<li class="rail__section" data-area="'+s.key+'" data-current="'+isCur+'"><div class="rail__row"><a class="rail__link" href="'+doorHref+'"'+(doorHere?' aria-current="page"':(isCur&&!open?' aria-current="location"':''))+'>'+ic+'<span>'+esc(RAILBY[s.key].label)+'</span></a><button type="button" class="rail__toggle" aria-expanded="'+open+'" aria-controls="'+subId+'" aria-label="'+esc(RAILBY[s.key].label)+' pages" data-act="flip" data-k="'+s.key+'">'+g(open?'chevron-down':'chevron-right',16)+'</button></div><ul id="'+subId+'" class="rail__sub"'+(open?'':' hidden')+'>'+sub+'</ul></li>';
+  };
+  var prim=rail.filter(function(s){return s.def.place==='primary';}),foot=rail.filter(function(s){return s.def.place==='footer';});
+  var focusToggle=(!can('focused')&&can('configure'))?'<div class="studio-nav__focus"><button type="button" class="btn btn-sm btn-block" data-act="sim" data-msg="Focus mode narrows the menu to the register; not reproduced in this preview.">Just taking the register</button></div>':'';
+  return {html:'<div class="studio-nav__close"><button type="button" class="btn btn-sm" data-act="drawer-close">'+g('x',16)+'Close</button></div><ul class="rail__list">'+prim.map(sec).join('')+'</ul><ul class="rail__list rail__list--footer">'+foot.map(sec).join('')+'</ul>'+focusToggle,rail:rail};
+}
+function themeMenu(){
+  var cur=S.theme||'system';
+  return '<details class="theme-menu" id="theme-menu"><summary class="btn btn-sm">Theme</summary><div class="theme-menu__panel"><fieldset role="radiogroup" aria-label="Theme"><legend>Theme</legend>'+[['system','System'],['light','Light'],['dark','Dark']].map(function(o){return '<label><input type="radio" name="theme" value="'+o[0]+'" data-change="theme"'+(cur===o[0]?' checked':'')+'> '+o[1]+'</label>';}).join('<br>')+'</fieldset></div></details>';
+}
+function appbar(){
+  var p=ROLE(S.role);
+  return '<header class="appbar"><a class="appbar__brand" href="'+href('home')+'">Scene Lead</a><div class="row"><select aria-label="Studio" data-change="studio"><option>'+esc(STUDIO.name)+'</option><option>Add or switch studio…</option></select><a class="appbar__cal btn btn-sm btn-ghost" href="#" data-act="sim" data-msg="Calendar subscription link (simulated).">Calendar</a><span class="muted appbar__who">'+esc(p.name.split(' ')[0].toLowerCase())+'@'+STUDIO.web+'</span>'+themeMenu()+'<button type="button" class="btn btn-sm" data-act="sim" data-msg="Sign out is simulated in this preview.">Sign out</button></div></header>';
+}
+function shell(content){
+  var p=ROLE(S.role);
+  if(S.page==='site'){
+    return appbar()+'<div class="stack studio-page studio-page--full-window"><header class="editor-frame-head"><a href="'+href('home')+'">← Back to the dashboard</a><span class="studio-head__name editor-frame-head__name">'+esc(STUDIO.name)+'</span></header>'+content+'</div>';
+  }
+  var r=railHtml();
+  var blocked=S.blocked?'<div class="state-note state-note--info"><span>'+g('info',16)+' <strong>'+esc(ROLE(S.role).label)+'</strong> does not have “'+esc(S.blocked)+'” in their menu, so the preview opened Home instead.</span></div>':'';
+  return appbar()+'<div class="container stack studio-page"><div class="studio-head"><a class="studio-head__back" href="#index">← All studios</a><p class="studio-head__name" style="font-weight:700">'+esc(STUDIO.name)+'</p><p class="studio-head__who muted">'+esc(p.name)+' · '+esc(p.label)+'</p></div><div class="studio-shell"><div class="studio-nav__bar"><button type="button" class="btn btn-sm studio-nav__menu" aria-expanded="'+S.drawer+'" aria-controls="studio-nav" data-act="drawer"><span aria-hidden="true">☰</span> Menu</button><span class="studio-nav__here muted">'+esc(hereLabel(r.rail))+'</span></div>'+(S.drawer?'<div class="studio-nav__scrim" data-act="drawer-close" aria-hidden="true"></div>':'')+'<nav id="studio-nav" class="studio-nav" aria-label="Studio sections" data-open="'+S.drawer+'">'+r.html+'</nav><main class="studio-shell__main stack" id="main" tabindex="-1">'+blocked+content+'</main></div></div>';
+}
+
+/* ================= dialogs ================= */
+function dlgShell(title,body,submit,o){o=o||{};
+  return '<div class="dlg-wrap" role="dialog" aria-modal="true" aria-labelledby="dlg-title"><div class="dlg-scrim" data-act="dlg-close"></div><form class="app-dialog'+(o.wide?' app-dialog--wide':'')+'" data-form="dialog"><div class="app-dialog__panel"><h2 class="app-dialog__title" id="dlg-title">'+esc(title)+'</h2>'+(o.lead?'<div class="app-dialog__body"><p>'+esc(o.lead)+'</p></div>':'')+'<div class="app-dialog__fields">'+body+'</div><p class="sim-note">'+g('info',16)+'<span>Preview: submitting shows “Simulated — nothing is saved or sent”.</span></p><div class="app-dialog__actions"><button type="button" class="btn" data-act="dlg-close">Cancel</button><button type="submit" class="btn btn-primary">'+esc(submit)+'</button></div></div></form></div>';
+}
+function dialogHtml(){
+  var d=S.dialog;if(!d)return '';
+  var teach=Object.keys(TEACH).map(function(k){return TEACH[k];});
+  switch(d.id){
+    case 'new-class':return dlgShell('Add a class',field('Program',sel('nc-prog',['Fall 2026','Winter 2027'],'Winter 2027'),{id:'nc-prog',req:1})+field('Class name',inp('nc-name','','e.g. Contemporary Level 1'),{id:'nc-name',req:1})+'<div class="form-row">'+field('Day',sel('nc-day',['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'],'Monday'),{id:'nc-day'})+field('Start time',inp('nc-time','18:00','','time'),{id:'nc-time'})+'</div><div class="form-row">'+field('Teacher',sel('nc-t',teach,teach[0]),{id:'nc-t'})+field('Capacity',inp('nc-cap','16','','number'),{id:'nc-cap'})+'</div>'+field('Venue',sel('nc-v',['Harbour Street · Studio A','Harbour Street · Studio B','Canal Hall'],'Harbour Street · Studio A'),{id:'nc-v'}),'Add class',{lead:'Classes live inside a program — the block of weeks they run in.'});
+    case 'invite':return dlgShell('Invite a staff member',field('Email',inp('inv-email','','staff@example.com','email'),{id:'inv-email',req:1})+field('Role',sel('inv-role',[['','Choose a role…']].concat(ROLES.map(function(r){return [r.key,r.label];})),''),{id:'inv-role',req:1})+'<details class="disclosure"><summary>'+g('chevron-right',16)+'About roles <span class="muted text-sm" style="font-weight:400">what each one may do</span></summary><ul class="text-sm" style="margin:.3rem 0 0;padding-left:1.1rem">'+ROLE_INFO.map(function(x){return '<li><strong>'+x[0]+'</strong> — '+x[1]+'</li>';}).join('')+'</ul></details>','Create invitation',{lead:'They get a link to accept. Scene Lead does not email invitations yet — you share the link yourself.'});
+    case 'broadcast':return dlgShell('Write a broadcast',field('Send to',sel('bc-to',['Everyone who agreed to hear from you (128)','Fall 2026 students (142 → 121 reachable)','Winter 2027 sign-ups (37)','Contemporary classes (40)'],'Fall 2026 students (142 → 121 reachable)'),{id:'bc-to',req:1})+field('Channel',sel('bc-ch',['Email','Text message','Email and text'],'Email'),{id:'bc-ch'})+field('Template',sel('bc-tpl',['— none —','Term sign-ups are open','Showcase tickets'],'Showcase tickets'),{id:'bc-tpl'})+field('Subject',inp('bc-sub','Winter Showcase tickets are on sale'),{id:'bc-sub',req:1})+field('Message','<textarea id="bc-body">Our Winter Showcase is on Sat, Dec 12 at Canal Hall. Tickets are on sale now — see you there!</textarea>',{id:'bc-body',req:1}),'Send broadcast',{lead:'One message, sent once. People who opted out are left out automatically.'});
+    case 'message-class':return dlgShell('Message this class',field('To','<input id="mc-to" value="'+esc(d.arg||'')+' — everyone enrolled" readonly>',{id:'mc-to'})+field('Message','<textarea id="mc-body" placeholder="e.g. Bring water — we are working on floor work tonight."></textarea>',{id:'mc-body',req:1}),'Send message');
+    case 'dropin':return dlgShell('Add a drop-in guest',field('Name',inp('di-name'),{id:'di-name',req:1})+field('Email (optional)',inp('di-email','','','email'),{id:'di-email'}),'Add guest',{lead:'Registered for this session only — not enrolled, outside roster totals.'});
+    case 'finalize':return dlgShell('Finalize attendance','<p class="muted" style="margin:0">Finalizing makes this register definitive for reports. Unmarked students are recorded as absent. You can reopen it for corrections.</p>','Finalize');
+    case 'publish':return dlgShell('Publish your website','<p class="muted" style="margin:0">Publishing saves anything unsaved and makes this draft the version visitors see at '+STUDIO.web+'/s/'+STUDIO.slug+'.</p><label class="app-dialog__choice"><input type="checkbox" required> <span>I have looked at the saved draft.</span></label>','Publish');
+    case 'look':return dlgShell('Choose a look','<div class="tpl-grid">'+TPLS.map(function(t){return '<label class="tpl"><input type="radio" name="look" value="'+t.id+'"'+(S.edTemplate===t.id?' checked':'')+' data-change="look"><span class="tpl__swatch" style="background:'+t.sw+'"></span><strong>'+esc(t.name)+'</strong><span class="muted text-sm">'+esc(t.desc)+'</span><span class="text-xs muted">Suits: '+esc(t.suited)+'</span></label>';}).join('')+'</div>','Use this look',{wide:1,lead:'A look fills your home page with the sections a studio website usually has. Your current draft is kept in version history.'});
+    case 'checkin-note':return dlgShell('New alert',field('Student',sel('cn-s',PEOPLE,PEOPLE[0]),{id:'cn-s',req:1})+field('Note','<textarea id="cn-t" placeholder="e.g. Collect a balance at the desk"></textarea>',{id:'cn-t',req:1}),'Save alert',{lead:'Notes the front desk sees when a student checks in. They never block check-in.'});
+  }
+  return '';
+}
+function submitDialog(){
+  var d=S.dialog;S.dialog=null;
+  if(d&&d.id==='finalize'&&d.arg){S.finalized[d.arg]=true;}
+  if(d&&d.id==='look'){var r=document.querySelector('input[name=look]:checked');if(r)S.edTemplate=r.value;S.draftSaved=false;}
+  render();toast('Simulated — nothing is saved or sent.');
+}
+
+/* ================= index / status page ================= */
+function vIndex(){
+  var rows=[];
+  var add=function(name,area,key,routes,note){rows.push([name,area,key,routes,note]);};
+  var link=function(page,label){var who=ROLES.filter(function(r){return pageVisible(r.key,page);});return who.map(function(r){return '<a href="#'+r.key+'-'+page+'">'+esc(label||r.label)+'</a>';}).join(' · ');};
+  add('App shell, sidebar rail, phone Menu, role visibility','All','shell','home');
+  add('Home','Today','home','home');
+  add('Area overview pages (card pages)','Schedule, People, Communications, Money & reports, Settings','area','area-communications');
+  add('Programs','Schedule','cycles','cycles');
+  add('Classes (list and one class)','Schedule','classes','classes');
+  add('Events & socials','Schedule','events','events');
+  add('Attendance / Check-In','Today','attendance','attendance');
+  add('Register (one session: take attendance)','Today / Schedule','register','register-s6');
+  add('My teaching','Today','my-teaching','my-teaching');
+  add('Students','People','students','students');
+  add('Messages','Communications','comms','comms');
+  add('Templates','Communications','templates','templates');
+  add('Broadcasts (opens the composer on Contacts & consent)','Communications','broadcasts','broadcasts');
+  add('Team','Settings','team','team');
+  add('Studio settings','Settings','settings','settings');
+  add('Website & Sharing','Website','website','website');
+  add('Website editor (full window, three looks)','Website','site','site');
+  NAV.forEach(function(n){
+    if(['','cycles','classes','events','attendance','my-teaching','students','comms','templates','broadcasts','team','settings','website','plans','lessons','availability','travel','bookings'].indexOf(n.seg)>=0)return;
+    add((PAGE_TITLE[n.seg]||n.label)+' (menu: '+n.label+')',RAILBY[areaOfSeg(n.seg)].label,'placeholder',n.seg);
+  });
+  var okN=rows.filter(function(r){return SCREEN_STATUS[r[2]][0]===OK;}).length;
+  var h='<div class="container stack" style="max-width:1100px"><header class="page-header"><h1 class="page-header__title" id="page-title" tabindex="-1">'+g('layout-grid',24)+'Release 2 preview — screens and status</h1><p class="page-header__description">Every screen in this preview, who can open it, and how closely it follows the frozen candidate <code>'+CANDIDATE+'</code>. '+okN+' of '+rows.length+' rows match the implementation from source; the rest are awaiting reconciliation. All data is fictional and every action is simulated.</p></header>';
+  h+='<div class="row"><a class="btn btn-primary" href="#owner-home">Open the owner view</a>'+ROLES.slice(1).map(function(r){return '<a class="btn btn-sm" href="#'+r.key+'-home">'+esc(r.label)+'</a>';}).join('')+'</div>';
+  h+='<div class="data-table__scroll"><table class="data-table idx-table"><thead><tr><th>Screen</th><th>Area</th><th>Status</th><th>Open as</th><th>Basis</th></tr></thead><tbody>'+rows.map(function(r){var st=SCREEN_STATUS[r[2]];var ok=st[0]===OK;var l=link(r[3]);return '<tr><td data-primary>'+esc(r[0])+'</td><td data-label="Area">'+esc(r[1])+'</td><td data-label="Status"><span class="badge '+(ok?'badge-success':'badge-warning')+'">'+esc(st[0])+'</span></td><td data-label="Open as">'+(l||'<span class="muted">not visible to these six roles</span>')+'</td><td data-label="Basis" class="text-sm muted">'+esc(st[1])+'</td></tr>';}).join('')+'</tbody></table></div>';
+  h+=section('Who sees what (from the candidate’s rules)','<p class="muted text-sm" style="margin:0">Studio tenant in “Everything” mode; private-instruction pages (Offerings, Availability, Travel, Bookings) are off for studios; Plans (legacy) hidden because the plans freeze applies. Instructors and attendance assistants get the focused menu: Home, Attendance / Check-In and My teaching.</p><div class="data-table__scroll"><table class="data-table"><thead><tr><th>Role</th><th>Areas in the sidebar</th><th>Pages</th></tr></thead><tbody>'+ROLES.map(function(r){var rail=railFor(r.key);return '<tr><td data-primary>'+esc(r.label)+'</td><td data-label="Areas">'+rail.map(function(s){return s.group?RAILBY[s.key].label:railItemLabel(s.key,s.items[0],r.key);}).join(', ')+'</td><td data-label="Pages">'+visibleSegs(r.key).length+'</td></tr>';}).join('')+'</tbody></table></div>');
+  h+='<p class="muted text-sm">Not reproduced: sign-in, the public website and registration pages, the kiosk, student-facing pages, and the independent-instructor and event-organizer variants of the menu.</p></div>';
+  return h;
+}
+
+/* ================= lab bar (preview chrome) ================= */
+function labBar(){
+  return '<div class="lab" id="lab" role="region" aria-label="Preview controls"><div class="lab__banner" role="note">Release 2 preview — candidate '+CANDIDATE+' — fictional data; actions are simulated</div><div class="lab__row"><span class="lab__brand"><span class="lab__mark" aria-hidden="true">R2</span>Scene Lead · Release 2 preview</span><label>Viewing as <select data-change="role" aria-label="Viewing as">'+ROLES.map(function(r){return '<option value="'+r.key+'"'+(S.role===r.key&&S.page!=='index'?' selected':'')+'>'+esc(r.label)+'</option>';}).join('')+'</select></label><span role="group" aria-label="Layout" style="display:inline-flex;gap:.3rem"><button type="button" class="lab__btn" data-act="frame" data-v="" aria-pressed="'+(!S.frame)+'">'+g('monitor',14)+'Fit window</button><button type="button" class="lab__btn" data-act="frame" data-v="phone" aria-pressed="'+(S.frame==='phone')+'">'+g('smartphone',14)+'Phone frame</button></span><a class="lab__btn" href="#index"'+(S.page==='index'?' aria-current="page"':'')+'>'+g('layout-grid',14)+'Screens &amp; status</a><span class="lab__status">Theme: use the app’s Theme menu (System / Light / Dark)</span></div></div>';
+}
+
+/* ================= render ================= */
+function view(){
+  var p=S.page;
+  if(p==='home')return vHome();
+  if(p.indexOf('area-')===0)return vArea(p.slice(5));
+  if(p.indexOf('class-')===0)return vClass(p.slice(6));
+  if(p.indexOf('register-')===0)return vRegister(p.slice(9));
+  switch(p){
+    case 'cycles':return vPrograms();
+    case 'classes':return vClasses();
+    case 'students':return vStudents();
+    case 'attendance':return vAttendance();
+    case 'my-teaching':return vMyTeaching();
+    case 'events':return vEvents();
+    case 'comms':return vComms();
+    case 'templates':return vTemplates();
+    case 'broadcasts':return vBroadcasts();
+    case 'team':return vTeam();
+    case 'settings':return vSettings();
+    case 'website':return vWebsiteHub();
+    case 'site':return vSite();
+  }
+  if(NAVBY[p])return vPlaceholder(p);
+  return vHome();
+}
+function applyTheme(){
+  var el=document.documentElement;
+  if(S.theme==='light'||S.theme==='dark')el.setAttribute('data-theme',S.theme);else el.removeAttribute('data-theme');
+}
+function measureLab(){var lab=$('#lab');document.documentElement.style.setProperty('--lab-h',(lab&&!S.frame?lab.offsetHeight:0)+'px');}
+function render(){
+  applyTheme();
+  var keepMenu=!!($('#theme-menu')&&$('#theme-menu').open);
+  var app=S.page==='index'?'<div class="sl-app">'+vIndex()+'</div>':'<div class="sl-app">'+shell(view())+'</div>';
+  var body=S.frame==='phone'?'<div class="phone-stage"><div class="phone"><div class="phone__screen" id="phone-screen">'+app+dialogHtml()+'</div></div></div>':app+dialogHtml();
+  $('#r2-root').innerHTML=labBar()+body;
+  if(keepMenu&&$('#theme-menu'))$('#theme-menu').open=true;
+  measureLab();
+  try{document.title=(S.page==='index'?'Screens and status':hereLabel(railFor(S.role)))+' · Release 2 preview';}catch(e){}
+}
+function afterNav(){
+  window.scrollTo(0,0);var ps=$('#phone-screen');if(ps)ps.scrollTop=0;
+  var t=$('#page-title');if(t){try{t.focus({preventScroll:true});}catch(e){}}
+}
+function toast(msg){
+  var box=$('#r2-toasts');if(!box)return;
+  var t=document.createElement('div');t.className='toast';
+  t.innerHTML='<span class="sim">Simulated</span><span>'+esc(msg)+'</span>';
+  box.appendChild(t);
+  setTimeout(function(){t.classList.add('out');setTimeout(function(){t.remove();},320);},3600);
+}
+
+/* ================= events ================= */
+document.addEventListener('click',function(e){
+  var el=e.target.closest('[data-act]');if(!el)return;
+  var a=el.getAttribute('data-act'),v=el.getAttribute('data-v');
+  switch(a){
+    case 'sim':e.preventDefault();toast(el.getAttribute('data-msg')||'Simulated — nothing is saved or sent.');return;
+    case 'dlg':S.dialog={id:el.getAttribute('data-dlg'),arg:el.getAttribute('data-arg')};render();setTimeout(function(){var f=$('.app-dialog input:not([readonly]),.app-dialog select,.app-dialog textarea');if(f)f.focus();},0);return;
+    case 'dlg-close':S.dialog=null;render();return;
+    case 'drawer':S.drawer=!S.drawer;render();if(S.drawer){var f=$('#studio-nav a');if(f)f.focus();}return;
+    case 'drawer-close':S.drawer=false;render();return;
+    case 'flip':S.flips[el.getAttribute('data-k')]=!S.flips[el.getAttribute('data-k')];render();var b=$('[data-act="flip"][data-k="'+el.getAttribute('data-k')+'"]');if(b)b.focus();return;
+    case 'frame':S.frame=v||null;store.set('sl-r2-frame',S.frame);render();return;
+    case 'focus':S.homeFocus=v;render();return;
+    case 'progws':S.progWs=v;render();return;
+    case 'evtab':S.evTab=v;render();return;
+    case 'toggle':var k=el.getAttribute('data-k');S[k]=!S[k];render();return;
+    case 'mark':{var sid=el.getAttribute('data-s'),pn=el.getAttribute('data-p');var m=S.att[sid]||(S.att[sid]={});m[pn]=m[pn]===v?'':v;render();return;}
+    case 'allpresent':{var s=SESS[v],c=CLS[s.cls];var m2=S.att[v]||(S.att[v]={});STUDENTS.slice(0,Math.min(c.en,12)).forEach(function(p){m2[p.name]='present';});render();toast('Everyone marked present (only in this preview).');return;}
+    case 'savedraft':S.draftSaved=true;render();toast('Simulated — nothing is saved or sent.');return;
+    case 'edpage':S.edPage=v;render();return;
+    case 'edsec':S.edSection=v;S.edPage='Home';render();return;
+    case 'edwidth':S.edWidth=v;render();return;
+  }
+});
+document.addEventListener('change',function(e){
+  var el=e.target;var c=el.getAttribute&&el.getAttribute('data-change');if(!c)return;
+  if(c==='role'){var r=el.value;var page=S.page==='index'?'home':S.page;S.drawer=false;go(r+'-'+(pageVisible(r,page)?page:'home'));return;}
+  if(c==='theme'){S.theme=el.value==='system'?null:el.value;store.set('sl-r2-theme',S.theme);render();return;}
+  if(c==='studio'){el.selectedIndex=0;toast('Only one fictional studio exists in this preview.');return;}
+});
+document.addEventListener('input',function(e){
+  var el=e.target;if(el.getAttribute&&el.getAttribute('data-input')==='search'){S.search=el.value;var pos=el.selectionStart;render();var n=$('#stu-search');if(n){n.focus();try{n.setSelectionRange(pos,pos);}catch(x){}}}
+});
+document.addEventListener('submit',function(e){
+  var f=e.target;var k=f.getAttribute('data-form');if(!k)return;e.preventDefault();
+  if(k==='dialog'){submitDialog();return;}
+  if(k==='new-program')S.newProgram=false;
+  if(k==='add-student')S.addStudent=false;
+  if(k==='new-event')S.newEvent=false;
+  render();toast('Simulated — nothing is saved or sent.');
+});
+document.addEventListener('keydown',function(e){
+  if(e.key!=='Escape')return;
+  if(S.dialog){S.dialog=null;render();return;}
+  if(S.drawer){S.drawer=false;render();var b=$('[data-act="drawer"]');if(b)b.focus();}
+});
+window.addEventListener('hashchange',function(){S.drawer=false;S.dialog=null;applyRoute(readHash());render();afterNav();});
+window.addEventListener('resize',measureLab);
+if(window.matchMedia){try{window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',function(){if(!S.theme)render();});}catch(e){}}
+
+/* ================= boot ================= */
+applyRoute(readHash()||'owner-home');
+render();
+})();
+
+</script>
+</body>
+</html>
